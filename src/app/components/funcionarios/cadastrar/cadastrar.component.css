@@ -1,0 +1,69 @@
+form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    font-weight: 600;
+}
+
+.fullbox, .halfbox, .halfbox-container {
+    display: flex;
+}
+
+.fullbox, .halfbox {
+    flex-direction: column;
+    padding: 3px;
+    margin-bottom: 10px;
+}
+
+.fullbox {
+    width: 100%;
+}   
+
+.halfbox {
+    justify-content: center;
+    width: 50%;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
+input {
+    padding: 5px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 7px 5px;
+    font-size: 1.1rem;
+    margin-top: 25px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.success {
+    background-color: rgb(21, 156, 21);
+    color: white;
+}
+
+.success:hover {
+    background-color: rgb(16, 121, 16);
+}
+
+.info {
+    background-color: rgb(6, 68, 240);
+    color: #FFF;
+}
+
+.info:hover {
+    background-color: rgb(7, 53, 182);
+}
