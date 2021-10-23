@@ -4,12 +4,12 @@ Este projeto foi feito com angular e electron.
 
 ## Getting started
 
-Para buildar o projeto para electron:
+Para buildar o projeto para desktop com electron:
+ 
+1. Abra o diretório do projeto
+2. Use o comando `npm start`
 
--> Abra o diretório do projeto
--> Use o comando [npm start]
+Para iniciar o projeto no navegador:
 
-Para buildar o projeto no navegador:
-
--> Abra o diretório do projeto
--> Use o comando [ng serve]
+1. Abra o diretório do projeto
+2. Use o comando `ng serve`
