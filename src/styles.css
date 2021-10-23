@@ -1,1 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap');
 /* You can add global styles to this file, and also import other style files */
+* {
+    text-decoration: none;
+    font-family: 'Zen Maru Gothic', Roboto, 'Segoe UI', 'sans-serif', 'arial';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* classes compartilhadas */
+.header {
+    font-weight: 300;
+    background-color: #3c3c3c;
+    color: #FFF;
+    padding: 10px 5px;
+    margin: -20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
