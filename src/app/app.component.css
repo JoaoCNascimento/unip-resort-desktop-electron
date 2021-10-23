@@ -1,0 +1,102 @@
+#container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+a {
+    color: white;
+}
+
+.routes-container {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(41,41,41);
+    height: 100vh;
+    width: 25vw;
+    max-width: 300px;
+    min-width: 180px;
+    color: white;
+}
+
+img {
+    width: 200px;
+}
+
+.item {
+    width: 100%;
+    position: relative;
+}
+
+.item-heading {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px;
+    width: 100%;
+}
+
+.item-icon {
+    font-size: 2rem;
+}
+
+.item-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+}
+
+.item:hover .dropdown {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: #1c1c1c;
+    width: 100%;
+    z-index: 999;
+}
+
+.dropdown-item {
+    padding: 15px;
+    background-color: #1a1a1a;
+    width: 100%;
+}
+
+.dropdown-item:hover {
+    background-color: #1f1f1f;
+}
+
+@media screen and (max-width: 950px) {
+
+    .item-icon {
+        font-size: 1.5rem;
+    }
+
+    .item-title {
+        font-size: 0.8rem;
+    }
+
+    img {
+        padding: 5px 10px;
+        width: 100%;
+    }
+
+    .dropdown-item {
+        font-size: 0.7rem;
+    }
+}
+
+app-loader {
+    position: fixed;
+}
