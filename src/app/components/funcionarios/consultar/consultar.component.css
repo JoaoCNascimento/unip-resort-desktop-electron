@@ -79,6 +79,7 @@ tbody tr td img {
 .btn-action {
     font-size: 2rem;
     padding: 5px 10px;
+    cursor: pointer;
 }
 
 .btn-action:nth-child(1) {
@@ -94,4 +95,34 @@ tbody tr td img {
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
+}
+
+
+.fullbox, .halfbox, .halfbox-container {
+    display: flex;
+}
+
+.fullbox, .halfbox {
+    flex-direction: column;
+    padding: 3px;
+    margin-bottom: 10px;
+}
+
+.fullbox {
+    width: 100%;
+}   
+
+.halfbox {
+    justify-content: center;
+    width: 50%;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
+input {
+    padding: 5px;
+    font-size: 1rem;
 }

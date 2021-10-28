@@ -8,7 +8,7 @@ import { Funcionario } from 'src/app/models/Funcionario';
 })
 export class FuncionariosService {
 
-  baseUrl = "https://backend-pim.herokuapp.com/funcionarios"
+  baseUrl = "https://backend-pim.herokuapp.com/funcionarios";
 
   constructor(private httpClient: HttpClient) { }
 
