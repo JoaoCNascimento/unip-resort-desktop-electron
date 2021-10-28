@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FuncionariosModule } from './components/funcionarios/funcionarios/funcionarios.module';
 
 const routes: Routes = [
+  {
+    path: '', component: DashboardComponent
+  },
   {
     path: 'funcionarios', loadChildren: () => import('./components/funcionarios/funcionarios/funcionarios.module')
       .then(m => m.FuncionariosModule)

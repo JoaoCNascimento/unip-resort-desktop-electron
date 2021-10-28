@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-categoria',
-  templateUrl: './categoria.component.html',
-  styleUrls: ['./categoria.component.css']
+  selector: 'app-criar-categoria',
+  templateUrl: './criar-categoria.component.html',
+  styleUrls: ['./criar-categoria.component.css']
 })
-export class CategoriaComponent implements OnInit {
+export class CriarCategoriaComponent implements OnInit {
 
   form: FormGroup;
 
@@ -30,4 +30,5 @@ export class CategoriaComponent implements OnInit {
     }
 
   }
+
 }

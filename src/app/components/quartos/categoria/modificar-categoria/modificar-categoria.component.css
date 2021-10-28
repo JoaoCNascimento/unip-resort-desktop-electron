@@ -28,6 +28,33 @@ h3 {
     text-align: center;
 }
 
+.search-input-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.search-input-container button, .search-input-container input {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.search-input-container button {
+    margin-left: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.btn-double-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-double-container button {
+    width: 48%;
+}
+
 form {
     display: flex;
 }
@@ -61,61 +88,4 @@ input:not(input[type="file"]), textarea {
     form .form-group {
         width: 100%;
     }
-}
-
-.controls {
-    margin: 25px 0px;
-    display: flex;
-}
-
-.controls a {
-    width: 47%;
-    text-align: center;
-    padding: 5px;
-    background-color: #2c2c2c;
-    padding: 5px;
-    margin: auto;
-    border-radius: 5px;
-    color: white;
-}
-
-.table-container {
-    height: 50vh;
-    max-height: 700px;
-    overflow-y: auto;
-    box-shadow: 0px 1px 3px rgba(48, 48, 48, 0.192);
-}
-
-table {
-    width: 100%;
-    text-align: center;
-    border-collapse: collapse;
-    min-width: 700px;
-}
-
-p {
-    text-align: center;
-}
-
-thead tr {
-    background-color: #1c1c1c;
-    color: #FFF;
-}
-
-th, td {
-    padding: 7px;
-}
-
-th:not(th + th) {
-    width: 40px;
-}
-
-tbody tr {
-    border-bottom: 1px solid #ccc;
-}
-
-tbody tr td img {
-    margin: auto;
-    max-width: 278px;
-    max-height: 171px;
 }

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-categoria',
-  templateUrl: './categoria.component.html',
-  styleUrls: ['./categoria.component.css']
+  selector: 'app-modificar-categoria',
+  templateUrl: './modificar-categoria.component.html',
+  styleUrls: ['./modificar-categoria.component.css']
 })
-export class CategoriaComponent implements OnInit {
+export class ModificarCategoriaComponent implements OnInit {
 
   form: FormGroup;
 

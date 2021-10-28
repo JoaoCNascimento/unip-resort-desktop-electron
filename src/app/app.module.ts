@@ -8,10 +8,12 @@ import { FuncionariosModule } from './components/funcionarios/funcionarios/funci
 import { LoaderModule } from './components/loader/loader.module';
 
 import { QuartosModule } from './components/quartos/quartos/quartos.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

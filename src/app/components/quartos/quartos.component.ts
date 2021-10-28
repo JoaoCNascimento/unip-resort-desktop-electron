@@ -10,6 +10,7 @@ export class QuartosComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

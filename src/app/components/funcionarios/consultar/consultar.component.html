@@ -1,1 +1,50 @@
-<p>consultar works!</p>
+<h2 class="header">Consultar Funcionários</h2>
+
+
+<div>
+    <label for="">Filtrar</label>
+    <div class="search-input-container">
+        <input type="text" placeholder="Nome do funcionário">
+        <button class="btn info">Pesquisar</button>
+    </div>    
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>CPF</th>
+                <th>RG</th>
+                <th>Data Nasc.</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let funcionario of funcionarios">
+                <td>{{ funcionario.id }}</td>
+                <td>{{ funcionario.nome }}</td>
+                <td>{{ funcionario.email }}</td>
+                <td>{{ funcionario.cpf }}</td>
+                <td>{{ funcionario.rg }}</td>
+                <td>{{ funcionario.dataNasc | date: "dd/MM/yyyy"}}</td>
+                <td>{{ funcionario.telefone }}</td>
+                <td>
+                    <fa-icon class="btn-action" [icon]="faEye"></fa-icon>
+                    <fa-icon class="btn-action" [icon]="faEdit"></fa-icon>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <tfoot>
+
+    </tfoot>
+</div>        
+<div class="caption-container">
+    <h4>Legendas</h4>
+    <p><fa-icon [icon]="faEye"></fa-icon> - Ver detalhes</p>
+    <p><fa-icon [icon]="faEdit"></fa-icon> - Modificar (Editar ou Excluir)</p>   
+</div>

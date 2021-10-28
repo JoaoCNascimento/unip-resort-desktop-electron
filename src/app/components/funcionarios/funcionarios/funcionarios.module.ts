@@ -9,6 +9,7 @@ import { EditarComponent } from '../editar/editar.component';
 import { ConsultarComponent } from '../consultar/consultar.component';
 import { CepService } from 'src/app/services/cep.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     ReactiveFormsModule,
     FuncionariosRoutingModule,
+    FontAwesomeModule,
     HttpClientModule
   ],
   providers: [

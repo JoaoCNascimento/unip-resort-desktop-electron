@@ -5,6 +5,6 @@ export interface Funcionario extends Pessoa {
     ctps: string
     dataAdmissao: Date
     cargo: string
-    salario: string
+    salario: Number
     // hospedagem: Hospedagem
 }

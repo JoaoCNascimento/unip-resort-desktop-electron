@@ -4,6 +4,7 @@
   "main": "main.js",
   "scripts": {
     "ng": "ng",
+    "dev": "ng serve -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

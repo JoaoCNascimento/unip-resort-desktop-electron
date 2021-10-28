@@ -15,10 +15,10 @@ function createWindow() {
             nodeIntegration: true,
             devTools: false
         },
-        icon: 'file://' + __dirname + `/dist/unip-resort-frontend/assets/unip-resort-logo.png`
+        icon: './dist/unip-resort-frontend/assets/favicon.png'
     })
 
-    win.loadURL('file://' + __dirname + `/dist/unip-resort-frontend/index.html`);
+    win.loadURL('file://' + __dirname + '/dist/unip-resort-frontend/index.html');
 
     win.removeMenu();
     //// uncoment below to open the DevTools.

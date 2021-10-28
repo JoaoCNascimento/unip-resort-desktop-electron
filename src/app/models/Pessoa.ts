@@ -1,9 +1,9 @@
 export interface Pessoa {
-    id: string
+    id: number
     nome: string
     email: string
     cpf: string
-    dataNasc: Date
+    dataNasc: string
     telefone: string
     rg: string
     rua: string
