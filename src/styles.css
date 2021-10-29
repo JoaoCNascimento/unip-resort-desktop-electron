@@ -30,6 +30,33 @@
     cursor: pointer;
 }
 
+.search-input-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.search-input-container button, .search-input-container input {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.search-input-container button {
+    margin-left: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.btn-double-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-double-container button {
+    width: 48%;
+}
+
 .success {
     background-color: rgb(21, 156, 21);
     color: white;
@@ -98,4 +125,48 @@
 
 .modal-close-button:hover {
     color: #3c3c3c;
+}
+
+/* tabelas */
+
+.table-container {
+    height: 50vh;
+    max-height: 700px;
+    overflow-y: auto;
+    box-shadow: 0px 1px 3px rgba(48, 48, 48, 0.192);
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+p {
+    text-align: center;
+}
+
+thead tr {
+    background-color: #1c1c1c;
+    color: #FFF;
+}
+
+th, td {
+    padding: 10px 15px;
+    white-space: nowrap;
+}
+
+th:not(th + th) {
+    width: 40px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+tbody tr td img {
+    margin: auto;
+    max-width: 278px;
+    max-height: 171px;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Funcionario } from 'src/app/models/Funcionario';
 import { FuncionariosService } from 'src/app/services/api/funcionarios.service';
 import { CepService } from 'src/app/services/cep.service';
@@ -12,8 +12,8 @@ import { CepService } from 'src/app/services/cep.service';
 })
 export class ConsultarComponent implements OnInit {
 
-  faEye = faEye;
   faEdit = faEdit;
+  faTrash = faTrash;
 
   form: FormGroup;
 

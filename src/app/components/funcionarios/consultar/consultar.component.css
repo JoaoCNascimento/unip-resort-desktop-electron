@@ -34,48 +34,6 @@ input:not(input[type="file"]), textarea {
     padding-right: 15px;
 }
 
-.table-container {
-    height: 50vh;
-    max-height: 700px;
-    overflow-y: auto;
-    box-shadow: 0px 1px 3px rgba(48, 48, 48, 0.192);
-}
-
-table {
-    width: 100%;
-    text-align: center;
-    border-collapse: collapse;
-    min-width: 700px;
-}
-
-p {
-    text-align: center;
-}
-
-thead tr {
-    background-color: #1c1c1c;
-    color: #FFF;
-}
-
-th, td {
-    padding: 10px 15px;
-    white-space: nowrap;
-}
-
-th:not(th + th) {
-    width: 40px;
-}
-
-tbody tr {
-    border-bottom: 1px solid #ccc;
-}
-
-tbody tr td img {
-    margin: auto;
-    max-width: 278px;
-    max-height: 171px;
-}
-
 .btn-action {
     font-size: 2rem;
     padding: 5px 10px;
@@ -87,7 +45,7 @@ tbody tr td img {
 }
 
 .btn-action:nth-child(2) {
-    color: rgb(240, 216, 0);
+    color: rgb(255, 47, 47);
 }
 
 .caption-container {
