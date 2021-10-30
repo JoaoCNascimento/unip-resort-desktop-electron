@@ -152,6 +152,14 @@ thead tr {
     color: #FFF;
 }
 
+td+td+td {
+    max-width: 300px;
+    min-width: 250px;
+    word-wrap: break-word;
+    word-spacing: normal;
+    white-space: pre-line;
+}
+
 th, td {
     padding: 10px 15px;
     white-space: nowrap;
@@ -169,4 +177,8 @@ tbody tr td img {
     margin: auto;
     max-width: 278px;
     max-height: 171px;
+}
+
+a:hover {
+    cursor: pointer;
 }
