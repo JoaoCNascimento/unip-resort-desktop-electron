@@ -1,1 +1,121 @@
-<p>administrar-quartos works!</p>
+<div>
+    <h2 class="header">Administrar Quartos</h2>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Categoria</th>
+                    <th>Andar</th>
+                    <th>Número</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <!--  -->
+            <tbody>
+                <tr *ngFor="let quarto of quartos">
+                    <td>{{ quarto.id }}</td>
+                    <td>{{ quarto.categoria.nome }}</td>
+                    <td>{{ quarto.andar }}</td>
+                    <td>{{ quarto.numero }}</td>
+                    <td>
+                        <fa-icon (click)="configurateForm(quarto.id)" class="btn-action" [icon]="faEdit"></fa-icon>
+                        <fa-icon class="btn-action" [icon]="faTrash"></fa-icon>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="!quartos">Não há quartos cadastrados</p>
+    </div>
+
+    <div class="caption-container">
+        <h4>Legendas</h4>
+        <p><fa-icon [icon]="faEdit"></fa-icon> - Ver e editar </p>   
+        <p><fa-icon [icon]="faTrash"></fa-icon> - Excluir </p>
+    </div>
+    
+    <div class="controls">
+        <a (click)="revealModal(0)">Adicionar novo quarto</a>
+    </div>
+</div>
+
+<div class="modal-container">
+    <div class="modal-body">
+        <span (click)="hideModal(0)" class="modal-close-button">&times;</span>
+        <div class="form-container">
+            <div>
+                <h3>Adicionar Quarto</h3>
+                <!-- <div class="search-input-container">
+                    <input type="text" placeholder="ID ou nome da categoria">
+                    <button class="btn info">Pesquisar</button>
+                </div> -->
+                <form [formGroup]="form">
+                    <div class="fullbox">
+                        <label for="">Categoria</label>
+                        <select formControlName="categoria">
+                            <option disabled selected>Selecione uma categoria</option>
+                            <option *ngFor="let categoria of categorias">{{categoria.nome}}</option>
+                        </select>
+                    </div>
+                    <!--  -->
+                    <div class="halfbox-container">
+                        <div class="halfbox">
+                            <label for="">Andar</label>
+                            <input type="text" formControlName="andar" placeholder="Ex.: 1, 2, 3, 4, etc...">
+                        </div>
+                        <!--  -->
+                        <div class="halfbox">
+                            <label for="">Número</label>
+                            <input type="text" formControlName="numero" placeholder="Ex.: 142, 123, 414, etc..." name="" id="">
+                        </div>
+                    </div>
+                    <button class="btn success">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->
+<div class="modal-container">
+    <div class="modal-body">
+        <span (click)="hideModal(1)" class="modal-close-button">&times;</span>
+        <div class="form-container">
+            <div>
+                <h3>Editar Quarto</h3>
+                <!-- <div class="search-input-container">
+                    <input type="text" placeholder="ID ou nome da categoria">
+                    <button class="btn info">Pesquisar</button>
+                </div> -->
+                <form [formGroup]="form">
+                    <div class="halfbox-container">
+                        <div class="halfbox">
+                            <label for="">ID</label>
+                            <input formControlName="id" disabled type="text">
+                        </div>
+                    </div>
+                    <div class="fullbox">
+                        <label for="">Categoria</label>
+                        <select formControlName="categoria">
+                            <option disabled selected value="">Selecione uma categoria</option>
+                            <option *ngFor="let categoria of categorias">{{categoria.nome}}</option>
+                        </select>
+                    </div>
+                    <!--  -->
+                    <div class="halfbox-container">
+                        <div class="halfbox">
+                            <label for="">Andar</label>
+                            <input type="text" formControlName="andar" placeholder="Ex.: 1, 2, 3, 4, etc...">
+                        </div>
+                        <!--  -->
+                        <div class="halfbox">
+                            <label for="">Número</label>
+                            <input type="text" formControlName="numero" placeholder="Ex.: 142, 123, 414, etc..." name="" id="">
+                        </div>
+                    </div>
+                    <button class="btn success">Salvar Alterações</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
