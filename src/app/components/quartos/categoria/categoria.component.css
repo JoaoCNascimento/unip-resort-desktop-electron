@@ -1,80 +1,85 @@
 h3 {
-    padding: 5px 10px;
+  padding: 5px 10px;
 }
 
 .image-preview {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 350px;
-    min-height: 220px;
-    width: 100%;
-    max-height: 450px;
-    max-width: 600px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    box-shadow: 0px 2px 3px 1px rgba(58, 58, 58, 0.185);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 350px;
+  min-height: 220px;
+  width: 100%;
+  max-height: 450px;
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0px 2px 3px 1px rgba(58, 58, 58, 0.185);
 }
 
 .image-preview-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    max-width: 600px;
-    max-height: 450px;
-    text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  max-height: 450px;
+  text-align: center;
 }
 
 form {
-    display: flex;
+  display: flex;
 }
 
 form .form-group {
-    width: 50%;
+  width: 50%;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 label {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
-input:not(input[type="file"]), textarea {
-    padding: 5px;
-    font-size: 1rem;
-    resize: vertical;
-    margin-bottom: 10px;
+input:not(input[type="file"]),
+textarea {
+  padding: 5px;
+  font-size: 1rem;
+  resize: vertical;
+  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 950px) {
-    form {
-        flex-direction: column;
-    }
+  form {
+    flex-direction: column;
+  }
 
-    form .form-group {
-        width: 100%;
-    }
+  form .form-group {
+    width: 100%;
+  }
 }
 
 .controls {
-    margin: 25px 0px;
-    display: flex;
+  margin: 25px 0px;
+  display: flex;
 }
 
 .controls a {
-    width: 47%;
-    text-align: center;
-    padding: 5px;
-    background-color: #2c2c2c;
-    padding: 5px;
-    margin: auto;
-    border-radius: 5px;
-    color: white;
+  width: 47%;
+  text-align: center;
+  padding: 5px;
+  background-color: #2c2c2c;
+  padding: 5px;
+  margin: auto;
+  border-radius: 5px;
+  color: white;
+}
+
+a:hover {
+  cursor: pointer;
 }

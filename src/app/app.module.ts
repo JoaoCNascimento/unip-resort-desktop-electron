@@ -10,12 +10,14 @@ import { LoaderModule } from './components/loader/loader.module';
 import { QuartosModule } from './components/quartos/quartos/quartos.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdministrarQuartosComponent } from './components/quartos/administrar-quartos/administrar-quartos.component';
+import { EmailComponent } from './components/email/email.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    AdministrarQuartosComponent
+    AdministrarQuartosComponent,
+    EmailComponent
   ],
   imports: [
     BrowserModule,

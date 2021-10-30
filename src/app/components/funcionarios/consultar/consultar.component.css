@@ -1,86 +1,90 @@
 h3 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  font-weight: 600;
 }
 
 label {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
-input:not(input[type="file"]), textarea {
-    padding: 5px;
-    font-size: 1rem;
-    resize: vertical;
-    margin-bottom: 10px;
+input:not(input[type="file"]),
+textarea {
+  padding: 5px;
+  font-size: 1rem;
+  resize: vertical;
+  margin-bottom: 10px;
 }
 
 .search-input-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 10px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
 }
 
-.search-input-container button, .search-input-container input {
-    margin-top: auto;
-    margin-bottom: auto;
+.search-input-container button,
+.search-input-container input {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .search-input-container button {
-    margin-left: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
+  margin-left: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .btn-action {
-    font-size: 2rem;
-    padding: 5px 10px;
-    cursor: pointer;
+  font-size: 2rem;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 .btn-action:nth-child(1) {
-    color: rgb(75, 75, 255);
+  color: rgb(75, 75, 255);
 }
 
 .btn-action:nth-child(2) {
-    color: rgb(255, 47, 47);
+  color: rgb(255, 47, 47);
 }
 
 .caption-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
 }
 
-
-.fullbox, .halfbox, .halfbox-container {
-    display: flex;
+.fullbox,
+.halfbox,
+.halfbox-container {
+  display: flex;
 }
 
-.fullbox, .halfbox {
-    flex-direction: column;
-    padding: 3px;
-    margin-bottom: 10px;
+.fullbox,
+.halfbox {
+  flex-direction: column;
+  padding: 3px;
+  margin-bottom: 10px;
 }
 
 .fullbox {
-    width: 100%;
-}   
+  width: 100%;
+}
 
 .halfbox {
-    justify-content: center;
-    width: 50%;
+  justify-content: center;
+  width: 50%;
 }
 
 label {
-    margin-bottom: 5px;
-    font-weight: 400;
+  margin-bottom: 5px;
+  font-weight: 400;
 }
 
 input {
-    padding: 5px;
-    font-size: 1rem;
+  padding: 5px;
+  font-size: 1rem;
 }

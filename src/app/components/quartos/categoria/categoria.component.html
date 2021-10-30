@@ -43,7 +43,6 @@
                         </div>
                             
                         <label for="category-image">Selecione uma imagem</label>
-                        <br>
                         <input #file type="file" name="category-image" accept=".png, .jpg, .jpeg" (change)="setImagePreview(file.files, 0)">
                     </div>
                     <!--  -->
@@ -85,6 +84,7 @@
                             
                         <div>
                             <label for="category-image">Selecione uma imagem</label>
+                            <br>
                             <input #fileModify type="file" name="category-image" accept=".png, .jpg, .jpeg" (change)="setImagePreview(fileModify.files, 1)">
                         </div>
                     </div>
