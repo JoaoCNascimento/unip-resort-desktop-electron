@@ -1,5 +1,5 @@
 <div id="container">
-  <div class="aside">
+  <div class="aside" *ngIf="authService.token"> 
     <a routerLink="/">
       <img src="assets/unip-resort-logo.png">
     </a>
@@ -36,7 +36,7 @@
       </div>
       <!--  -->
       <div class="dropdown">
-        <a routerLink="administrar" class="item dropdown-item">
+        <a routerLink="quartos/administrar" class="item dropdown-item">
           Administrar quartos
         </a>
         <!--  -->
@@ -74,11 +74,11 @@
       </div>
       <!--  -->
       <div class="dropdown">
-        <a class="item dropdown-item">
+        <a routerLink="email/email-clientes" class="item dropdown-item">
           Clientes
         </a>
         <!--  -->
-        <a class="item dropdown-item">
+        <a routerLink="email/email-funcionarios" class="item dropdown-item">
           Funcionários
         </a>
       </div>
@@ -127,6 +127,17 @@
         <!--  -->
       </div>
     </div>
+    <!--  -->
+    <div (click)="exit()" class="item">
+      <div class="item-heading">
+        <div class="item-icon">
+          <fa-icon [icon]="faDoor"></fa-icon>
+        </div>
+        <div class="item-title">
+          Sair
+        </div>
+      </div>
+    </div>  
   </div>
   <!--  -->
   <div class="routes-container">

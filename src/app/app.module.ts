@@ -9,25 +9,43 @@ import { LoaderModule } from './components/loader/loader.module';
 
 import { QuartosModule } from './components/quartos/quartos/quartos.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { EmailComponent } from './components/email/email.component';
+import { EmailModule } from './components/email/module/email.module';
+import { LoginComponent } from './components/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { CpfPipe } from './pipes/cpf.pipe';
+import { LoaderInterceptor } from './components/loader/loader.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    EmailComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     FuncionariosModule,
     QuartosModule,
-    LoaderModule
+    LoaderModule,
+    EmailModule,
   ],
   bootstrap: [AppComponent],
   providers: [
-
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: AuthInterceptor, 
+      multi: true
+    }, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+    }
   ]
 })
 export class AppModule { }
