@@ -28,8 +28,8 @@
                 <td>{{ funcionario.id }}</td>
                 <td>{{ funcionario.nome }}</td>
                 <td>{{ funcionario.email }}</td>
-                <td>{{ funcionario.cpf }}</td>
-                <td>{{ funcionario.rg }}</td>
+                <td>{{ funcionario.cpf | cpf}}</td>
+                <td>{{ funcionario.rg | rg}}</td>
                 <td>{{ funcionario.dataNasc | date: "dd/MM/yyyy"}}</td>
                 <td>{{ funcionario.telefone }}</td>
                 <td>

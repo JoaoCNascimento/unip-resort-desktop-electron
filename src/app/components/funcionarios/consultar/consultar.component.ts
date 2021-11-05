@@ -17,8 +17,10 @@ export class ConsultarComponent implements OnInit {
 
   form: FormGroup;
 
-  funcionarios: Funcionario[] = [
-    {
+  funcionarios: Funcionario[] = [];
+
+  /*
+  {
       id: 1,
       nome: "João Nascimento",
       cpf: "421.412.412.44",
@@ -57,8 +59,8 @@ export class ConsultarComponent implements OnInit {
       ctps: "612.412-8",
       dataAdmissao: new Date(),
       salario: 2000.10
-    }
-  ]
+    }  
+  */
 
   constructor(
     private fs: FuncionariosService
@@ -73,6 +75,7 @@ export class ConsultarComponent implements OnInit {
   findAllFuncionarios() {
     this.fs.findAll().subscribe(res => {
       console.log(res);
+      this.funcionarios = res;
     });
   }
 

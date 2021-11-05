@@ -1,6 +1,19 @@
 <div>
     <h2 class="header">Administrar Quartos</h2>
-
+    <label><b>Filtro</b></label>
+    <div [formGroup]="researchForm" class="search-input-container">
+        <div class="search-input-halfbox">
+            <label for="">Andar</label>
+            <input formControlName="andar" placeholder="Ex.: 1, 13, 5..." type="text" name="" id="">
+        </div>
+        <!--  -->
+        <div class="search-input-halfbox">
+            <label for="">Numero</label>
+            <input formControlName="numero" placeholder="Ex.: 1, 13, 5..." type="text" name="" id="">
+        </div>
+        <button (click)="_filtrarQuartos()" class="btn info">Filtrar</button>
+    </div>
+        
     <div class="table-container">
         <table>
             <thead>
@@ -14,7 +27,7 @@
             </thead>
             <!--  -->
             <tbody>
-                <tr *ngFor="let quarto of quartos">
+                <tr *ngFor="let quarto of quartosFiltrados">
                     <td>{{ quarto.id }}</td>
                     <td>{{ quarto.categoria.nome }}</td>
                     <td>{{ quarto.andar }}</td>
@@ -26,7 +39,7 @@
                 </tr>
             </tbody>
         </table>
-        <p *ngIf="!quartos">Não há quartos cadastrados</p>
+        <p *ngIf="!quartosFiltrados || !quartosFiltrados.length">Nenhum quarto encontrado.</p>
     </div>
 
     <div class="caption-container">
@@ -54,7 +67,7 @@
                     <div class="fullbox">
                         <label for="">Categoria</label>
                         <select formControlName="categoria">
-                            <option disabled selected>Selecione uma categoria</option>
+                            <option disabled>Selecione uma categoria</option>
                             <option *ngFor="let categoria of categorias">{{categoria.nome}}</option>
                         </select>
                     </div>

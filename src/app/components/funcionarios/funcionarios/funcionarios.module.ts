@@ -8,12 +8,16 @@ import { ConsultarComponent } from '../consultar/consultar.component';
 import { CepService } from 'src/app/services/cep.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CpfPipe } from 'src/app/pipes/cpf.pipe';
+import { RgPipe } from 'src/app/pipes/rg.pipe';
 
 @NgModule({
   declarations: [
     FuncionariosComponent,
     CadastrarComponent,
     ConsultarComponent,
+    CpfPipe,
+    RgPipe
   ],
   imports: [
     CommonModule,

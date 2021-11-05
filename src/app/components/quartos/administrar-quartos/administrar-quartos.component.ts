@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Categoria } from 'src/app/models/Categoria';
 import { Quarto } from 'src/app/models/Quarto';
@@ -13,6 +13,12 @@ export class AdministrarQuartosComponent implements OnInit {
 
   faTrash = faTrash;
   faEdit = faEdit;
+
+  _filtrarQuartos() {
+    this.filtrarQuartos(this.researchForm.get('andar').value, this.researchForm.get('numero').value);
+  }
+
+  quartosFiltrados: Quarto[] = [];
 
   categorias: Categoria[] = [
     {
@@ -86,14 +92,65 @@ export class AdministrarQuartosComponent implements OnInit {
       andar: 1,
       numero: 8
     },
+    {
+      id: 9,
+      categoria: this.categorias[0],
+      andar: 2,
+      numero: 1
+    },
+    {
+      id: 10,
+      categoria: this.categorias[2],
+      andar: 2,
+      numero: 2
+    },
+    {
+      id: 11,
+      categoria: this.categorias[1],
+      andar: 2,
+      numero: 3
+    },
+    {
+      id: 12,
+      categoria: this.categorias[0],
+      andar: 2,
+      numero: 4
+    },
+    {
+      id: 13,
+      categoria: this.categorias[2],
+      andar: 2,
+      numero: 5
+    },
+    {
+      id: 14,
+      categoria: this.categorias[0],
+      andar: 2,
+      numero: 6
+    },
+    {
+      id: 15,
+      categoria: this.categorias[1],
+      andar: 2,
+      numero: 7
+    },
+    {
+      id: 16,
+      categoria: this.categorias[2],
+      andar: 2,
+      numero: 8
+    },
   ];
 
   form: FormGroup;
+
+  researchForm: FormGroup;
 
   constructor() { }
 
   ngOnInit(): void {
     this.configurateForm();
+    this.quartosFiltrados = this.quartos;
   }
 
   configurateForm(id?:number) {
@@ -116,6 +173,12 @@ export class AdministrarQuartosComponent implements OnInit {
       this.revealModal(1);
     }
     else {
+      
+      this.researchForm = new FormGroup({
+        andar: new FormControl(null, {}),
+        numero: new FormControl(null, {}),
+      });
+
       return this.form = new FormGroup({
         id: new FormControl(null, {}),
         categoria: new FormControl(null, {}),
@@ -123,6 +186,16 @@ export class AdministrarQuartosComponent implements OnInit {
         andar: new FormControl(null, {})
       })
     }
+  }
+
+  filtrarQuartos(andar: string, numero: string) {
+    if(isNaN(Number(andar))){
+      return;
+    }
+
+    andar = andar.toLocaleLowerCase();
+    return this.quartosFiltrados = this.quartos.filter(quarto => 
+      quarto.andar.toString().indexOf(andar) !== -1 && quarto.numero.toString().indexOf(numero) !== -1);
   }
 
   revealModal(modal_index: number) {

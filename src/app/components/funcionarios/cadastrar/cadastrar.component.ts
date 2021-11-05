@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Funcionario } from 'src/app/models/Funcionario';
+import { FuncionariosService } from 'src/app/services/api/funcionarios.service';
 import { CepService } from 'src/app/services/cep.service';
 
 @Component({
@@ -12,11 +15,25 @@ export class CadastrarComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private cepService: CepService
+    private cepService: CepService,
+    private fs: FuncionariosService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.configurateForm();
+  }
+
+  onSubmit() {
+    if(this.form.valid) {
+      let funcionario: Funcionario = Object.assign({}, this.form.value);
+      this.fs.create(funcionario).subscribe(res => {
+        this.router.navigate(['consultar']);
+      });
+    }
+    else {
+      alert("Inválido");
+    }
   }
 
   configurateForm() {
@@ -43,6 +60,11 @@ export class CadastrarComponent implements OnInit {
       email: new FormControl(null, {
         validators: [
           Validators.required,
+        ]
+      }),
+      senha: new FormControl(null, {
+        validators: [
+          Validators.required
         ]
       }),
       cpf: new FormControl(null, {

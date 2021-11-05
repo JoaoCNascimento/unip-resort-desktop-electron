@@ -1,0 +1,17 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <img width="200" src="assets/unip-resort-logo.png">
+
+        <div class="fullbox">
+            <label for="">Email</label>
+            <input formControlName="email" type="text" class="fullbox" placeholder="Digite seu email">
+        </div>
+        
+        <div class="fullbox">
+            <label for="">Senha</label>
+            <input formControlName="senha" type="text" class="fullbox" placeholder="Digite sua senha">
+        </div>
+    
+        <button class="btn success">Entrar</button>
+    </form>
+</div>

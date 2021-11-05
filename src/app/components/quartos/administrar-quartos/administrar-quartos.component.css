@@ -1,78 +1,91 @@
 form {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
 h3 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  font-weight: 600;
 }
 
-.fullbox, .halfbox, .halfbox-container {
-    display: flex;
+.search-input-container {
+  padding-left: 0px;
 }
 
-.fullbox, .halfbox {
-    flex-direction: column;
-    padding: 3px;
-    margin-bottom: 10px;
+.search-input-container button {
+  margin-left: 0px;
+  margin-bottom: 0px;
+}
+
+.fullbox,
+.halfbox,
+.halfbox-container {
+  display: flex;
+}
+
+.fullbox,
+.halfbox {
+  flex-direction: column;
+  padding: 3px;
+  margin-bottom: 10px;
 }
 
 .fullbox {
-    width: 100%;
-}   
+  width: 100%;
+}
 
 .halfbox {
-    justify-content: center;
-    width: 50%;
+  justify-content: center;
+  width: 50%;
 }
 
 label {
-    margin-bottom: 5px;
-    font-weight: 400;
+  margin-bottom: 5px;
+  font-weight: 400;
 }
 
-input, select {
-    padding: 5px;
-    font-size: 1rem;
+input,
+select {
+  padding: 5px;
+  font-size: 1rem;
 }
 
 .controls {
-    margin: 25px 0px;
-    display: flex;
+  margin: 25px 0px;
+  display: flex;
 }
-  
+
 .controls a {
-    width: 47%;
-    text-align: center;
-    padding: 5px;
-    background-color: #2c2c2c;
-    padding: 5px;
-    margin: auto;
-    border-radius: 5px;
-    color: white;
+  width: 47%;
+  text-align: center;
+  padding: 5px;
+  background-color: #2c2c2c;
+  padding: 5px;
+  margin: auto;
+  border-radius: 5px;
+  color: white;
 }
 
 .btn-action {
-    font-size: 2rem;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .btn-action:nth-child(1) {
-    color: rgb(75, 75, 255);
-  }
-  
-  .btn-action:nth-child(2) {
-    color: rgb(255, 47, 47);
-  }
-  
-  .caption-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-  }
+  font-size: 2rem;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.btn-action:nth-child(1) {
+  color: rgb(75, 75, 255);
+}
+
+.btn-action:nth-child(2) {
+  color: rgb(255, 47, 47);
+}
+
+.caption-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
