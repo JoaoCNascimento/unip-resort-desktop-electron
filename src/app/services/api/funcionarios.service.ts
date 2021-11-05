@@ -15,4 +15,8 @@ export class FuncionariosService {
   findAll(): Observable<Funcionario[]> {
     return this.httpClient.get<Funcionario[]>(this.baseUrl);
   }
+
+  create(f: Funcionario) {
+    return this.httpClient.post(this.baseUrl, f);
+  }
 }
