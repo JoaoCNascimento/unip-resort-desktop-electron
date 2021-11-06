@@ -1,1 +1,30 @@
 <h2 class="header">Email Clientes</h2>
+<div>
+    <form [formGroup]="form">
+        <div class="fullbox">
+            <label for="">Título</label>
+            <input type="text" formControlName="titulo">
+        </div>
+
+        <div class="fullbox">
+            <label for="">Conteúdo</label>
+            <textarea formControlName="conteudo" rows="5"></textarea>
+        </div>
+
+        <input type="file" #file (change)="alterarImagem(file.files)">
+    </form>
+
+    <h3>Visualização do email:</h3>
+    <p *ngIf="form">{{form.value | json }}</p>
+
+    <div class="email-container">
+        <h3>{{form.value.titulo || 'Suas férias agora!' }}</h3>
+        <div class="conteudo">
+            <img class="img-container" src="" alt="Imagem de exemplo.">
+            <div class="text-container">
+                {{form.value.conteudo || 'Suas férias nunca estiveram mais próximas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia aliquid distinctio blanditiis excepturi reiciendis, modi fuga! Iusto dicta laborum, qui ad quia nemo quaerat? Accusamus nostrum placeat fuga! Repellat, ipsum?'}}
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -5,6 +5,7 @@ import { EmailRoutingModule } from './email-routing.module';
 import { EmailComponent } from '../email.component';
 import { EmailClienteComponent } from '../email-cliente/email-cliente.component';
 import { EmailFuncionarioComponent } from '../email-funcionario/email-funcionario.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { EmailFuncionarioComponent } from '../email-funcionario/email-funcionari
   ],
   imports: [
     CommonModule,
-    EmailRoutingModule
+    EmailRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class EmailModule { }

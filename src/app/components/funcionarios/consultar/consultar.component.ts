@@ -73,9 +73,11 @@ export class ConsultarComponent implements OnInit {
   }
 
   findAllFuncionarios() {
-    this.fs.findAll().subscribe(res => {
-      console.log(res);
-      this.funcionarios = res;
+    this.fs.findAll().subscribe((res) => {
+      if(res)
+        return this.funcionarios = res;
+      
+        return this.funcionarios = [];
     });
   }
 

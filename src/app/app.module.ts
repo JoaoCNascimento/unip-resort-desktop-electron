@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +17,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CpfPipe } from './pipes/cpf.pipe';
 import { LoaderInterceptor } from './components/loader/loader.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { LoaderInterceptor } from './components/loader/loader.interceptor';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
@@ -33,6 +36,7 @@ import { LoaderInterceptor } from './components/loader/loader.interceptor';
     QuartosModule,
     LoaderModule,
     EmailModule,
+    ToastrModule.forRoot({progressBar: true, closeButton: true, timeOut: 2500})
   ],
   bootstrap: [AppComponent],
   providers: [

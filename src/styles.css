@@ -191,3 +191,47 @@ tbody tr td img {
 a:hover {
   cursor: pointer;
 }
+
+
+.fullbox,
+.halfbox,
+.halfbox-container {
+  display: flex;
+}
+
+.fullbox,
+.halfbox {
+  flex-direction: column;
+  padding: 3px;
+  margin-bottom: 10px;
+}
+
+.fullbox {
+  width: 100%;
+}
+
+.halfbox {
+  justify-content: center;
+  width: 50%;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: 400;
+}
+
+input {
+  padding: 5px;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 530px) {
+  .halfbox-container {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .halfbox {
+    width: 100%;
+  }
+}
