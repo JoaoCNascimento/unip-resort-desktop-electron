@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Categoria } from 'src/app/models/Categoria';
 import { CategoriaService } from 'src/app/services/api/categoria.service';
@@ -14,7 +14,7 @@ export class CategoriaComponent implements OnInit {
   faTrash = faTrash;
   faEdit = faEdit;
 
-  img:any;
+  img: File;
 
   form: FormGroup;
 
@@ -38,7 +38,7 @@ export class CategoriaComponent implements OnInit {
 
   configurateForm(id?:number) {
     if (id) {
-      let categoria: Categoria = this.categorias.filter(c => c.id = id)[0];
+      let categoria: Categoria = this.categorias.filter(c => c.id === id)[0];
 
       this.form = this.fb.group({
         nome: [categoria.nome],
@@ -53,10 +53,10 @@ export class CategoriaComponent implements OnInit {
     }
     else {
       return this.form = this.fb.group({
-        nome: [],
-        descricao: [],
-        imagem: [],
-        precoDiaria: []
+        nome: ['', Validators.required],
+        descricao: ['', Validators.required],
+        imagem: ['', Validators.required],
+        precoDiaria: ['', Validators.required]
       })
     }
   }
@@ -68,8 +68,23 @@ export class CategoriaComponent implements OnInit {
 
     let categoria: Categoria = Object.assign({}, this.form.value);
 
+    categoria.imagem = this.img;
+
     this.cs.create(categoria).subscribe(
-      res => { this.getCategorias() }
+      res => { this.getCategorias(); console.log(categoria); this.hideModal(0); }
+    );
+  }
+
+  onSubmitUpdateCategoria() {
+    if(!this.form.valid)
+      return alert('Formulário inválido!');
+
+    let categoria: Categoria = Object.assign({}, this.form.value);
+
+    categoria.imagem = this.img;
+
+    this.cs.create(categoria).subscribe(
+      res => { this.getCategorias(); console.log(categoria); this.hideModal(0); }
     );
   }
 
@@ -77,7 +92,6 @@ export class CategoriaComponent implements OnInit {
     let file = e[0];
 
     this.img = e[0];
-    console.log(this.img);
     
     if (file) {
       const reader = new FileReader();
@@ -106,5 +120,11 @@ export class CategoriaComponent implements OnInit {
     const modalBody: any = document.querySelectorAll('.modal-body')[modal_index];
     setTimeout(()=>{ modalBody.style.cssText = "margin-top: -105%" }, 50)
     setTimeout(()=>{ modal.style.cssText = "display: none"; this.form.reset(); }, 400)
+  }
+
+  deleteCategoria(id) {
+    this.cs.deleteById(id).subscribe(res => {
+      this.getCategorias();
+    });
   }
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Categoria } from 'src/app/models/Categoria';
+import { Quarto } from 'src/app/models/Quarto';
 
 import { baseUrl } from '../../../config/config';
 import { AuthService } from './auth.service';
@@ -11,9 +11,9 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CategoriaService {
+export class QuartoService {
 
-  baseUrl = baseUrl + 'categorias';
+  baseUrl = baseUrl + 'quartos';
 
   constructor(
     private httpClient: HttpClient
@@ -28,8 +28,8 @@ export class CategoriaService {
    );
  }
 
- create(c: Categoria | any) {
-   return this.httpClient.post(this.baseUrl, c).pipe(
+ create(q: Quarto) {
+   return this.httpClient.post(this.baseUrl, q).pipe(
      tap(res => {this.successMessage(); return res}),
      catchError(er => {this.handleError(er); return er})
    );

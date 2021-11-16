@@ -29,7 +29,7 @@
             <tbody>
                 <tr *ngFor="let quarto of quartosFiltrados">
                     <td>{{ quarto.id }}</td>
-                    <td>{{ quarto.categoria.nome }}</td>
+                    <td>{{ quarto.categoria }}</td>
                     <td>{{ quarto.andar }}</td>
                     <td>{{ quarto.numero }}</td>
                     <td>
@@ -64,7 +64,7 @@
                         <label for="">Categoria</label>
                         <select formControlName="categoria">
                             <option disabled>Selecione uma categoria</option>
-                            <option *ngFor="let categoria of categorias">{{categoria.nome}}</option>
+                            <!-- <option *ngFor="let categoria of categorias">{{categoria.nome}}</option> -->
                         </select>
                     </div>
                     <!--  -->
@@ -106,7 +106,7 @@
                         <label for="">Categoria</label>
                         <select formControlName="categoria">
                             <option disabled selected value="">Selecione uma categoria</option>
-                            <option *ngFor="let categoria of categorias">{{categoria.nome}}</option>
+                            <!-- <option *ngFor="let categoria of categorias">{{categoria.nome}}</option> -->
                         </select>
                     </div>
                     <!--  -->

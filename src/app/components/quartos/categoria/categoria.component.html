@@ -21,7 +21,7 @@
                 <td><img src="{{categoria.imagem || 'assets/img-empty.png'}}" alt=""/></td>
                 <td>
                     <fa-icon (click)="configurateForm(categoria.id)" class="btn-action" [icon]="faEdit"></fa-icon>
-                    <fa-icon class="btn-action" [icon]="faTrash"></fa-icon>
+                    <fa-icon (click)="deleteCategoria(categoria.id)" class="btn-action" [icon]="faTrash"></fa-icon>
                 </td>
             </tr>
         </tbody>
@@ -45,9 +45,10 @@
                         <div class="image-preview">
                             <img src="" alt="Prévia da imagem" class="image-preview-image">
                         </div>
-                            
-                        <label for="category-image">Selecione uma imagem</label>
-                        <input #file formControlName="imagem" type="file" name="category-image" accept=".png, .jpg, .jpeg" (change)="setImagePreview(file.files, 0)">
+
+                        <button type="button" (click)="file.click()" class="btn info">Escolher imagem</button>
+                        <label for="category-image">{{  img ? img.name : 'Nenhum arquivo selecionado' }}</label>
+                        <input #file style="display: none;" formControlName="imagem" type="file" name="category-image" accept=".png, .jpg, .jpeg" (change)="setImagePreview(file.files, 0)">
                     </div>
                     <!--  -->
                     <div class="form-group">
@@ -74,10 +75,6 @@
         <div class="form-container">
             <div>
                 <h3>Modificar categoria</h3>
-                <!-- <div class="search-input-container">
-                    <input type="text" placeholder="ID ou nome da categoria">
-                    <button class="btn info">Pesquisar</button>
-                </div> -->
 
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     <div class="form-group">
