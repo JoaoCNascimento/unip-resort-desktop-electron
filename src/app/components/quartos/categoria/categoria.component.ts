@@ -61,6 +61,7 @@ export class CategoriaComponent implements OnInit {
     }
   }
 
+  // TODO - validação de formulário e tratamento de campos inválidos.
   onSubmit() {
     if(!this.form.valid)
       return alert('Formulário inválido!');
@@ -77,7 +78,7 @@ export class CategoriaComponent implements OnInit {
 
     this.img = e[0];
     console.log(this.img);
-
+    
     if (file) {
       const reader = new FileReader();
       const previewImage = document.querySelectorAll('.image-preview-image')[modal_index];
