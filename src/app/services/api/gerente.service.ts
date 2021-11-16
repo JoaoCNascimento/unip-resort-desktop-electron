@@ -3,32 +3,31 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Funcionario } from 'src/app/models/Funcionario';
-import { baseUrl } from 'src/config/config';
+import { Gerente } from 'src/app/models/Gerente';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FuncionariosService {
+export class GerenteService {
 
-  baseUrl = baseUrl + 'funcionarios';
+  baseUrl = "https://backend-pim.herokuapp.com/gerentes";
 
   constructor(
-     private httpClient: HttpClient
-    ,private authService: AuthService
-    ,private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private httpClient: HttpClient,
+    private authService: AuthService
   ) { }
 
   findAll(): Observable<any> {
     return this.httpClient.get<any[]>(this.baseUrl).pipe(
-      tap(res => {this.successMessage(); return res}),
-      catchError(er => {this.handleError(er); return er})
+      tap(res => { this.successMessage(); return res} ),
+      catchError(er => {this.handleError(er); return er })
     );
   }
 
-  create(f: Funcionario) {
-    return this.httpClient.post(this.baseUrl, f);
+  create(g: Gerente) {
+    return this.httpClient.post(this.baseUrl, g);
   }
 
   successMessage() {

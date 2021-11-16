@@ -15,15 +15,20 @@ import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { CpfPipe } from './pipes/cpf.pipe';
 import { LoaderInterceptor } from './components/loader/loader.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { ManutencaoModule } from './components/manutencao/module/manutencao.module';
+import { RelatorioComponent } from './components/relatorio/relatorio.component';
+import { ConfiguracoesComponent } from './components/configuracoes/configuracoes.component';
+import { ConfiguracoesModule } from './components/configuracoes/module/configuracoes.module';
+import { UsuariosComponent } from './components/configuracoes/usuarios/usuarios.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    RelatorioComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,9 @@ import { ToastrModule } from 'ngx-toastr';
     QuartosModule,
     LoaderModule,
     EmailModule,
-    ToastrModule.forRoot({progressBar: true, closeButton: true, timeOut: 2500})
+    ToastrModule.forRoot({progressBar: true, closeButton: true, timeOut: 2500}),
+    ManutencaoModule,
+    ConfiguracoesModule
   ],
   bootstrap: [AppComponent],
   providers: [

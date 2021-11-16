@@ -2,29 +2,38 @@
 <div>
     <form [formGroup]="form">
         <div class="fullbox">
+            <label for="">Assunto</label>
+            <input type="text" placeholder="Digite o assunto do email" formControlName="assunto">
+        </div>
+
+        <div class="fullbox">
             <label for="">Título</label>
-            <input type="text" formControlName="titulo">
+            <input type="text" placeholder="Ex.: Promoção de final de ano" formControlName="titulo">
         </div>
 
         <div class="fullbox">
             <label for="">Conteúdo</label>
-            <textarea formControlName="conteudo" rows="5"></textarea>
+            <textarea formControlName="conteudo" placeholder="Ex.: Neste fim de ano, ofereceremos um cupom... " rows="5"></textarea>
         </div>
 
-        <input type="file" #file (change)="alterarImagem(file.files)">
+        <div>
+            <input type="file" #file (change)="alterarImagem(file.files)">
+        </div>
+        
+        <button class="btn success"> Enviar Email </button>
     </form>
 
-    <h3>Visualização do email:</h3>
-    <p *ngIf="form">{{form.value | json }}</p>
+    <hr>
 
+    <h3>Pré-visualização do email</h3>
+    <br>
     <div class="email-container">
-        <h3>{{form.value.titulo || 'Suas férias agora!' }}</h3>
+        <h3>{{form.value.titulo || 'Suas férias chegaram mais cedo!' }}</h3>
         <div class="conteudo">
-            <img class="img-container" src="" alt="Imagem de exemplo.">
-            <div class="text-container">
-                {{form.value.conteudo || 'Suas férias nunca estiveram mais próximas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia aliquid distinctio blanditiis excepturi reiciendis, modi fuga! Iusto dicta laborum, qui ad quia nemo quaerat? Accusamus nostrum placeat fuga! Repellat, ipsum?'}}
-            </div>
+            <img class="img-container" src="https://picsum.photos/1280/720" alt="Imagem de exemplo.">
+            <pre class="text-container">
+                {{form.value.conteudo || 'Neste ano, lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia aliquid distinctio blanditiis excepturi reiciendis, modi fuga! Iusto dicta laborum, qui ad quia nemo quaerat? Accusamus nostrum placeat fuga! Repellat, ipsum?'}}
+            </pre>
         </div>
-
     </div>
 </div>

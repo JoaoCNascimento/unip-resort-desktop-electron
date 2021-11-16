@@ -57,7 +57,7 @@
       </div>
       <!--  -->
       <div class="dropdown">
-        <a class="item dropdown-item">
+        <a routerLink="relatorios" class="item dropdown-item">
           Gerar Relatório
         </a>
       </div>
@@ -95,16 +95,8 @@
       </div>
       <!--  -->
       <div class="dropdown">
-        <a class="item dropdown-item">
-          Agendar
-        </a>
-        <!--  -->
-        <a class="item dropdown-item">
-          Consultar
-        </a>
-        <!--  -->
-        <a class="item dropdown-item">
-          Modificar
+        <a routerLink="manutencao/" class="item dropdown-item">
+          Administrar Manutenções
         </a>
         <!--  -->
       </div>
@@ -120,15 +112,15 @@
         </div>
       </div>
       <!--  -->
-      <div class="dropdown">
+      <div routerLink="configuracoes/usuarios" class="dropdown">
         <a class="item dropdown-item">
-          Dados
+          Usuários
         </a>
         <!--  -->
       </div>
     </div>
     <!--  -->
-    <div (click)="exit()" class="item">
+    <a (click)="exit()" class="item">
       <div class="item-heading">
         <div class="item-icon">
           <fa-icon [icon]="faDoor"></fa-icon>
@@ -137,7 +129,7 @@
           Sair
         </div>
       </div>
-    </div>  
+    </a>  
   </div>
   <!--  -->
   <div class="routes-container">

@@ -25,6 +25,20 @@ const routes: Routes = [
       .then(m => m.EmailModule),
   },
   {
+    path: 'manutencao', loadChildren: () => import('./components/manutencao/module/manutencao.module')
+      .then(m => m.ManutencaoModule)
+  },
+  {
+    path: 'relatorios',
+    loadChildren: () => import('./components/relatorio/module/relatorio.module')
+      .then(m => m.RelatorioModule)
+  },
+  {
+    path: 'configuracoes',
+    loadChildren: () => import('./components/configuracoes/module/configuracoes.module')
+      .then(m => m.ConfiguracoesModule)
+  },
+  {
     path: 'login', component: LoginComponent
   },
   {

@@ -188,10 +188,30 @@ tbody tr td img {
   max-height: 171px;
 }
 
-a:hover {
+.btn-action {
+  font-size: 2rem;
+  padding: 5px 10px;
   cursor: pointer;
 }
 
+.btn-action:nth-child(1) {
+  color: rgb(75, 75, 255);
+}
+
+.btn-action:nth-child(2) {
+  color: rgb(255, 47, 47);
+}
+
+.caption-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+a:hover {
+  cursor: pointer;
+}
 
 .fullbox,
 .halfbox,
@@ -220,7 +240,14 @@ label {
   font-weight: 400;
 }
 
-input {
+hr {
+  border: none;
+  border-bottom: 1px solid #adadad;
+  margin: 20px auto;
+}
+
+input:not(input[type="file"]),
+textarea {
   padding: 5px;
   font-size: 1rem;
 }
@@ -234,4 +261,20 @@ input {
   .halfbox {
     width: 100%;
   }
+}
+
+.controls {
+  margin: 25px 0px;
+  display: flex;
+}
+
+.controls a {
+  width: 47%;
+  text-align: center;
+  padding: 5px;
+  background-color: #2c2c2c;
+  padding: 5px;
+  margin: auto;
+  border-radius: 5px;
+  color: white;
 }

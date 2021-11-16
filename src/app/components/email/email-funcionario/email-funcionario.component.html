@@ -1,1 +1,39 @@
 <h2 class="header">Email Funcionários</h2>
+<div>
+    <form [formGroup]="form">
+        <div class="fullbox">
+            <label for="">Assunto</label>
+            <input type="text" placeholder="Digite o assunto do email" formControlName="assunto">
+        </div>
+
+        <div class="fullbox">
+            <label for="">Título</label>
+            <input type="text" placeholder="Ex.: Boas festas!" formControlName="titulo">
+        </div>
+
+        <div class="fullbox">
+            <label for="">Conteúdo</label>
+            <textarea formControlName="conteudo" placeholder="Ex.: A diretoria da empresa deseja a todos..." rows="5"></textarea>
+        </div>
+
+        <div>
+            <input type="file" #file (change)="alterarImagem(file.files)">
+        </div>
+        
+        <button class="btn success"> Enviar Email </button>
+    </form>
+
+    <hr>
+
+    <h3>Pré-visualização do email</h3>
+    <br>
+    <div class="email-container">
+        <h3>{{form.value.titulo || 'Suas férias chegaram mais cedo!' }}</h3>
+        <div class="conteudo">
+            <img class="img-container" src="https://picsum.photos/1280/720" alt="Imagem de exemplo.">
+            <pre class="text-container">
+                {{form.value.conteudo || 'Neste ano, lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia aliquid distinctio blanditiis excepturi reiciendis, modi fuga! Iusto dicta laborum, qui ad quia nemo quaerat? Accusamus nostrum placeat fuga! Repellat, ipsum?'}}
+            </pre>
+        </div>
+    </div>
+</div>

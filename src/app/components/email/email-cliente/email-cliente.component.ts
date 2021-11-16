@@ -18,9 +18,10 @@ export class EmailClienteComponent implements OnInit {
 
   configurateForm() {
     return this.form = new FormGroup({
+      assunto: new FormControl(),
       titulo: new FormControl(),
       conteudo: new FormControl(),
-      picture: new FormControl()
+      imagem: new FormControl()
     })
   }
 
@@ -33,6 +34,7 @@ export class EmailClienteComponent implements OnInit {
 
       reader.addEventListener("load", () => {
         previewImage.setAttribute("src", reader.result.toString());
+        this.form.get('imagem').setValue(reader.result.toString());
       })
 
       reader.readAsDataURL(file);
