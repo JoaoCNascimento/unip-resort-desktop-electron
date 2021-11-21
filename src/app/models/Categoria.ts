@@ -2,6 +2,6 @@ export interface Categoria {
     id: number;
     nome: String;
     descricao: String;
-    imagem: String | File;
+    imageUrl: String | File;
     precoDiaria: Number;
 }
