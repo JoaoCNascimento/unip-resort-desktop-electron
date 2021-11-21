@@ -22,17 +22,34 @@ export class FuncionariosService {
 
   findAll(): Observable<any> {
     return this.httpClient.get<any[]>(this.baseUrl).pipe(
-      tap(res => {this.successMessage(); return res}),
+      tap(res => {this.successMessage('Registros encontrados com sucesso!'); return res}),
       catchError(er => {this.handleError(er); return er})
     );
   }
 
   create(f: Funcionario) {
-    return this.httpClient.post(this.baseUrl, f);
+    return this.httpClient.post(this.baseUrl, f).pipe(
+      tap(res => this.successMessage('Funcionário cadastrado com sucesso!')),
+      catchError(er => {this.handleError(er); return er;})
+    );
   }
 
-  successMessage() {
-    this.toastrService.success('A requisição foi feita com sucesso!', 'Sucesso');
+  update(f: Funcionario) {
+    return this.httpClient.put(this.baseUrl, f).pipe(
+      tap(res => this.successMessage('Funcionário atualizado com sucesso!')),
+      catchError(er => {this.handleError(er); return er;})
+    );
+  }
+
+  delete(id) {
+    return this.httpClient.delete(this.baseUrl + '/' + id).pipe(
+      tap(res => this.successMessage('Funcionário excluído com sucesso!')),
+      catchError(er => {this.handleError(er); return er;})
+    );
+  }
+
+  successMessage(message: string) {
+    this.toastrService.success(message, 'Sucesso');
   }
 
   handleError(er:any, error_message?: string) {

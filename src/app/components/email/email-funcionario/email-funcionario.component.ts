@@ -43,4 +43,9 @@ export class EmailFuncionarioComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
+
+  enviarEmail() {
+    const emailBody = document.querySelectorAll('.email-body')[0];
+    console.log(emailBody.innerHTML);
+  }
 }
