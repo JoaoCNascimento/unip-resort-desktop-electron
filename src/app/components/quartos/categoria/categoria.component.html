@@ -18,7 +18,7 @@
                 <td>{{categoria.nome}}</td>
                 <td>{{categoria.descricao}}</td>
                 <td>{{categoria.precoDiaria | currency: 'BRL'}}</td>
-                <td><img src="{{categoria.imagem || 'assets/img-empty.png'}}" alt=""/></td>
+                <td><img src="{{categoria.imageUrl ? categoria.imageUrl : 'assets/img-empty.png'}}" alt=""/></td>
                 <td>
                     <fa-icon (click)="configurateForm(categoria.id)" class="btn-action" [icon]="faEdit"></fa-icon>
                     <fa-icon (click)="deleteCategoria(categoria.id)" class="btn-action" [icon]="faTrash"></fa-icon>
@@ -48,7 +48,7 @@
 
                         <button type="button" (click)="file.click()" class="btn info">Escolher imagem</button>
                         <label for="category-image">{{  img ? img.name : 'Nenhum arquivo selecionado' }}</label>
-                        <input #file style="display: none;" formControlName="imagem" type="file" name="category-image" accept=".png, .jpg, .jpeg" (change)="setImagePreview(file.files, 0)">
+                        <input #file style="display: none;" type="file" name="category-image" accept=".png, .jpg, .jpeg" (change)="setImagePreview(file.files, 0)">
                     </div>
                     <!--  -->
                     <div class="form-group">
@@ -76,16 +76,16 @@
             <div>
                 <h3>Modificar categoria</h3>
 
-                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <form [formGroup]="form" (ngSubmit)="onSubmitUpdateCategoria()">
                     <div class="form-group">
                         <div class="image-preview">
-                            <img src="" alt="Prévia da imagem" class="image-preview-image">
+                            <img src="{{imgUrlToForm}}" alt="Prévia da imagem" class="image-preview-image">
                         </div>
                             
                         <div>
                             <label for="category-image">Selecione uma imagem</label>
                             <br>
-                            <input #fileModify formControlName="imagem"  type="file" name="category-image" accept=".png, .jpg, .jpeg" (change)="setImagePreview(fileModify.files, 1)">
+                            <input #fileModify  type="file" name="category-image" accept=".png, .jpg, .jpeg" (change)="setImagePreview(fileModify.files, 1)">
                         </div>
                     </div>
                     <!--  -->

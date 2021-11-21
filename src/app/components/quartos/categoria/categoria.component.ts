@@ -15,6 +15,7 @@ export class CategoriaComponent implements OnInit {
   faEdit = faEdit;
 
   img: File;
+  imgUrlToForm: String = ''; 
 
   form: FormGroup;
 
@@ -33,21 +34,24 @@ export class CategoriaComponent implements OnInit {
   getCategorias() {
     this.cs.findAll().subscribe(res => {
       this.categorias = res;
+      this.categorias.sort(c => c.id)
     })
   }
 
-  configurateForm(id?:number) {
+  configurateForm(id?: number) {
+    this.imgUrlToForm = '';
     if (id) {
       let categoria: Categoria = this.categorias.filter(c => c.id === id)[0];
 
       this.form = this.fb.group({
+        id: [categoria.id],
         nome: [categoria.nome],
         descricao: [categoria.descricao],
-        imagem: [categoria.imagem],
-        precoDiaria: [categoria.precoDiaria]
+        precoDiaria: [categoria.precoDiaria],
+        imageUrl: [categoria.imageUrl]
       });
 
-      console.log(this.form.value);
+      this.imgUrlToForm = categoria.imageUrl.toString();
 
       this.revealModal(1);
     }
@@ -55,7 +59,6 @@ export class CategoriaComponent implements OnInit {
       return this.form = this.fb.group({
         nome: ['', Validators.required],
         descricao: ['', Validators.required],
-        imagem: ['', Validators.required],
         precoDiaria: ['', Validators.required]
       })
     }
@@ -63,28 +66,41 @@ export class CategoriaComponent implements OnInit {
 
   // TODO - validação de formulário e tratamento de campos inválidos.
   onSubmit() {
-    if(!this.form.valid)
+    if (!this.form.valid)
       return alert('Formulário inválido!');
 
     let categoria: Categoria = Object.assign({}, this.form.value);
 
-    categoria.imagem = this.img;
+    categoria.imageUrl = '';
 
     this.cs.create(categoria).subscribe(
-      res => { this.getCategorias(); console.log(categoria); this.hideModal(0); }
+      (res: any) => {
+        let savedId = res.headers.get('Location').split('/')[4];
+        this.cs.uploadImage(this.img, savedId).subscribe(
+          res => {
+            this.getCategorias(); console.log(categoria); this.hideModal(0);  
+          }
+        );
+      }
     );
   }
 
   onSubmitUpdateCategoria() {
-    if(!this.form.valid)
+    if (!this.form.valid)
       return alert('Formulário inválido!');
 
     let categoria: Categoria = Object.assign({}, this.form.value);
-
-    categoria.imagem = this.img;
-
-    this.cs.create(categoria).subscribe(
-      res => { this.getCategorias(); console.log(categoria); this.hideModal(0); }
+    let categoriaId = categoria.id;
+    this.cs.update(categoria).subscribe(
+      (res: any) => {
+        this.cs.uploadImage(this.img, categoriaId).subscribe(
+          res => {
+            this.getCategorias();  
+          }
+        );
+        this.getCategorias();
+        this.hideModal(1); 
+      }
     );
   }
 
@@ -92,14 +108,14 @@ export class CategoriaComponent implements OnInit {
     let file = e[0];
 
     this.img = e[0];
-    
+
     if (file) {
       const reader = new FileReader();
       const previewImage = document.querySelectorAll('.image-preview-image')[modal_index];
 
       reader.addEventListener("load", () => {
         previewImage.setAttribute("src", reader.result.toString());
-        this.form.get('imagem').setValue(reader.result.toString());
+        this.form.get('imageUrl').setValue(reader.result.toString());
       })
 
       reader.readAsDataURL(file);
@@ -118,8 +134,8 @@ export class CategoriaComponent implements OnInit {
   hideModal(modal_index: number) {
     const modal: any = document.querySelectorAll('.modal-container')[modal_index];
     const modalBody: any = document.querySelectorAll('.modal-body')[modal_index];
-    setTimeout(()=>{ modalBody.style.cssText = "margin-top: -105%" }, 50)
-    setTimeout(()=>{ modal.style.cssText = "display: none"; this.form.reset(); }, 400)
+    setTimeout(() => { modalBody.style.cssText = "margin-top: -105%" }, 50)
+    setTimeout(() => { modal.style.cssText = "display: none"; this.form.reset(); }, 400)
   }
 
   deleteCategoria(id) {
