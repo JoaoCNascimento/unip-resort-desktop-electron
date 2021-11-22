@@ -1,10 +1,10 @@
 import { Pessoa } from "./Pessoa";
 
 export interface Funcionario extends Pessoa {
-    matricula: string
+    matricula: string 
     ctps: string
-    dataAdmissao: Date
     cargo: string
+    dataAdmissao: Date | String
     salario: Number
     // hospedagem: Hospedagem
 }
