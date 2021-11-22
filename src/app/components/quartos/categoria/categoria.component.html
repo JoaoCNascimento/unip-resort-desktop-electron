@@ -1,111 +1,195 @@
 <h2 class="header">Categorias</h2>
 
 <div class="table-container">
-    <table>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Nome categoria</th>
-                <th>Descrição</th>
-                <th>Valor (diária)</th>
-                <th>Imagem</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let categoria of categorias">
-                <td>{{categoria.id}}</td>
-                <td>{{categoria.nome}}</td>
-                <td>{{categoria.descricao}}</td>
-                <td>{{categoria.precoDiaria | currency: 'BRL'}}</td>
-                <td><img src="{{ categoria.imageUrl !== null ? categoria.imageUrl : 'assets/img-empty.png'}}" alt=""/></td>
-                <td>
-                    <fa-icon (click)="configurateForm(categoria.id)" class="btn-action" [icon]="faEdit"></fa-icon>
-                    <fa-icon (click)="deleteCategoria(categoria.id)" class="btn-action" [icon]="faTrash"></fa-icon>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <p hidden>Nenhuma categoria cadastrada.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nome categoria</th>
+        <th>Descrição</th>
+        <th>Valor (diária)</th>
+        <th>Imagem</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let categoria of categorias">
+        <td>{{ categoria.id }}</td>
+        <td>{{ categoria.nome }}</td>
+        <td>{{ categoria.descricao }}</td>
+        <td>{{ categoria.precoDiaria | currency: "BRL" }}</td>
+        <td>
+          <img
+            src="{{
+              categoria.imageUrl !== null
+                ? categoria.imageUrl
+                : 'assets/img-empty.png'
+            }}"
+            alt=""
+          />
+        </td>
+        <td>
+          <fa-icon
+            (click)="configurateForm(categoria.id)"
+            class="btn-action"
+            [icon]="faEdit"
+          ></fa-icon>
+          <fa-icon
+            (click)="deleteCategoria(categoria.id)"
+            class="btn-action"
+            [icon]="faTrash"
+          ></fa-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p hidden>Nenhuma categoria cadastrada.</p>
 </div>
 
 <div class="controls">
-    <a (click)="revealModal(0)">Criar nova categoria</a>
-    <!-- <a (click)="revealModal(1)">Modificar categoria</a> -->
+  <a (click)="revealModal(0)">Criar nova categoria</a>
 </div>
 <!--  -->
 <div class="modal-container">
-    <div id="modal-body" class="modal-body">
-        <span (click)="hideModal(0)" class="modal-close-button">&times;</span>
-        <div class="form-container">
-            <div>
-                <h3>Cria nova categoria</h3>
-                <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                    <div class="form-group">
-                        <div class="image-preview">
-                            <img src="" alt="Prévia da imagem" class="image-preview-image">
-                        </div>
-
-                        <button type="button" (click)="file.click()" class="btn info">Escolher imagem</button>
-                        <label for="category-image">{{  img ? img.name : 'Nenhum arquivo selecionado' }}</label>
-                        <input #file style="display: none;" type="file" name="category-image" accept=".png, .jpg, .jpeg" (change)="setImagePreview(file.files, 0)">
-                    </div>
-                    <!--  -->
-                    <div class="form-group">
-                        <label for="">Nome Categoria</label>
-                        <input type="text" formControlName="nome" placeholder="Ex.: Suíte Master">
-                
-                        <label for="">Valor Diária</label>
-                        <input type="text" formControlName="precoDiaria" placeholder="R$">
-                
-                        <label for="">Descrição</label>
-                        <textarea name="" formControlName="descricao" cols="30" rows="4" placeholder="Ex.: Banheira, Frigobar, Cama casal..."></textarea>
-            
-                        <button class="btn success">Criar categoria</button>
-                    </div>
-                </form>
+  <div id="modal-body" class="modal-body">
+    <span (click)="hideModal(0)" class="modal-close-button">&times;</span>
+    <div class="form-container">
+      <div>
+        <h3>Cria nova categoria</h3>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <div class="image-preview">
+              <img src="" alt="Prévia da imagem" class="image-preview-image" />
             </div>
-        </div>
+
+            <button type="button" (click)="file.click()" class="btn info">
+              Escolher imagem
+            </button>
+            <label for="category-image">{{
+              img ? img.name : "Nenhum arquivo selecionado"
+            }}</label>
+            <input
+              #file
+              style="display: none"
+              type="file"
+              name="category-image"
+              accept=".png, .jpg, .jpeg"
+              (change)="setImagePreview(file.files, 0)"
+            />
+          </div>
+          <!--  -->
+          <div class="form-group">
+            <label for="">Nome Categoria</label>
+            <input
+              type="text"
+              formControlName="nome"
+              placeholder="Ex.: Suíte Master"
+            />
+            <div
+              *ngIf="
+                form.get('nome').hasError('required') &&
+                form.get('nome').touched
+              "
+              class="invalid-feedback"
+            >
+              A o nome da categoria é obrigatório.
+            </div>
+
+            <label for="">Valor Diária</label>
+            <input type="text" formControlName="precoDiaria" placeholder="R$" />
+            <div
+              *ngIf="
+                form.get('precoDiaria').hasError('required') &&
+                form.get('precoDiaria').touched
+              "
+              class="invalid-feedback"
+            >
+              O valor da diária é obrigatório.
+            </div>
+
+            <label for="">Descrição</label>
+            <textarea
+              name=""
+              formControlName="descricao"
+              cols="30"
+              rows="4"
+              placeholder="Ex.: Banheira, Frigobar, Cama casal..."
+            ></textarea>
+            <div
+              *ngIf="
+                form.get('descricao').hasError('required') &&
+                form.get('descricao').touched
+              "
+              class="invalid-feedback"
+            >
+              A descrição é obrigatória.
+            </div>
+
+            <button class="btn success">Criar categoria</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 <!--  -->
 <div class="modal-container">
-    <div id="modal-body" class="modal-body">
-        <span (click)="hideModal(1)" class="modal-close-button">&times;</span>
-        <div class="form-container">
-            <div>
-                <h3>Modificar categoria</h3>
+  <div id="modal-body" class="modal-body">
+    <span (click)="hideModal(1)" class="modal-close-button">&times;</span>
+    <div class="form-container">
+      <div>
+        <h3>Modificar categoria</h3>
 
-                <form [formGroup]="form" (ngSubmit)="onSubmitUpdateCategoria()">
-                    <div class="form-group">
-                        <div class="image-preview">
-                            <img src="{{imgUrlToForm}}" alt="Prévia da imagem" class="image-preview-image">
-                        </div>
-                            
-                        <div>
-                            <label for="category-image">Selecione uma imagem</label>
-                            <br>
-                            <input #fileModify  type="file" name="category-image" accept=".png, .jpg, .jpeg" (change)="setImagePreview(fileModify.files, 1)">
-                        </div>
-                    </div>
-                    <!--  -->
-                    <div class="form-group">
-                        <label for="">Nome Categoria</label>
-                        <input type="text" formControlName="nome" placeholder="Ex.: Suíte Master">
-                
-                        <label for="">Valor Diária</label>
-                        <input type="text" formControlName="precoDiaria" placeholder="R$">
-                
-                        <label for="">Descrição</label>
-                        <textarea name="" formControlName="descricao" cols="30" rows="4" placeholder="Ex.: Banheira, Frigobar, Cama casal..."></textarea>
-
-                        <div class="btn-double-container">
-                            <button class="btn success">Salvar alterações</button>
-                            <button class="btn danger">Excluir categoria</button>
-                        </div>
-                    </div>
-                </form>
+        <form [formGroup]="form" (ngSubmit)="onSubmitUpdateCategoria()">
+          <div class="form-group">
+            <div class="image-preview">
+              <img
+                src="{{ imgUrlToForm }}"
+                alt="Prévia da imagem"
+                class="image-preview-image"
+              />
             </div>
-        </div>
+
+            <div>
+              <label for="category-image">Selecione uma imagem</label>
+              <br />
+              <input
+                #fileModify
+                type="file"
+                name="category-image"
+                accept=".png, .jpg, .jpeg"
+                (change)="setImagePreview(fileModify.files, 1)"
+              />
+            </div>
+          </div>
+          <!--  -->
+          <div class="form-group">
+            <label for="">Nome Categoria</label>
+            <input
+              type="text"
+              formControlName="nome"
+              placeholder="Ex.: Suíte Master"
+            />
+
+            <label for="">Valor Diária</label>
+            <input type="text" formControlName="precoDiaria" placeholder="R$" />
+
+            <label for="">Descrição</label>
+            <textarea
+              name=""
+              formControlName="descricao"
+              cols="30"
+              rows="4"
+              placeholder="Ex.: Banheira, Frigobar, Cama casal..."
+            ></textarea>
+
+            <div class="btn-double-container">
+              <button class="btn success">Salvar alterações</button>
+              <button class="btn danger">Excluir categoria</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
