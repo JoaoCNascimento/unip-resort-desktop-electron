@@ -35,7 +35,7 @@ export class FuncionariosService {
   }
 
   update(f: Funcionario) {
-    return this.httpClient.put(this.baseUrl, f).pipe(
+    return this.httpClient.put(this.baseUrl + '/' + f.id, f).pipe(
       tap(res => this.successMessage('Funcionário atualizado com sucesso!')),
       catchError(er => {this.handleError(er); return er;})
     );
@@ -60,6 +60,10 @@ export class FuncionariosService {
     if(er.error.error === "Forbidden") {
       this.toastrService.warning("Faça o login novamente", "Sessão expirada...", { timeOut: 3000 });
       return this.authService.setToken();
+    }
+
+    if(er.error.errors) {
+      return this.toastrService.error('Erro no campo ' + er.error.errors[0].fieldName + ': ' + er.error.errors[0].message);
     }
 
     return this.toastrService.error("Verifique sua conexão e tente novamente", "Houve um erro...");

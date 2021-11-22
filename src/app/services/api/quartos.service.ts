@@ -23,27 +23,38 @@ export class QuartoService {
 
  findAll(): Observable<any> {
    return this.httpClient.get<any[]>(this.baseUrl).pipe(
-     tap(res => {this.successMessage(); return res}),
+     tap(res => {this.successMessage('Quartos encontrados com êxito!'); return res}),
      catchError(er => {this.handleError(er); return er})
    );
  }
 
  create(q: Quarto) {
    return this.httpClient.post(this.baseUrl, q).pipe(
-     tap(res => {this.successMessage(); return res}),
+     tap(res => {this.successMessage('Quarto criado com êxito!'); return res}),
      catchError(er => {this.handleError(er); return er})
    );
  }
 
+ update(q: Quarto) {
+  return this.httpClient.put(this.baseUrl + '/' + q.id, {
+    andar: q.andar,
+    numero: q.numero,
+    categoria: q.categoria
+  }).pipe(
+    tap(res => {this.successMessage('Quarto de id:' + q.id + ' atualizado com êxito!'); return res}),
+    catchError(er => {this.handleError(er); return er})
+  )
+ }
+
  deleteById(id) {
    return this.httpClient.delete(this.baseUrl + '/' + id).pipe(
-    tap(res => {this.successMessage(); return res}),
+    tap(res => {this.successMessage('Quarto de id:' + id + " deletado com êxito!"); return res}),
     catchError(er => {this.handleError(er); return er})
    )
  }
 
- successMessage() {
-   this.toastrService.success('A requisição foi feita com sucesso!', 'Sucesso');
+ successMessage(message: string) {
+   this.toastrService.success(message, 'Sucesso');
  }
 
  handleError(er:any, error_message?: string) {
