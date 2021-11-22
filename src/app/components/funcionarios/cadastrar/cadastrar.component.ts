@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { Funcionario } from 'src/app/models/Funcionario';
 import { FuncionariosService } from 'src/app/services/api/funcionarios.service';
 import { CepService } from 'src/app/services/cep.service';
@@ -17,7 +18,8 @@ export class CadastrarComponent implements OnInit {
   constructor(
     private cepService: CepService,
     private fs: FuncionariosService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -25,19 +27,33 @@ export class CadastrarComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.form.valid) {
-      let funcionario: Funcionario = Object.assign({}, this.form.value);
-      this.fs.create(funcionario).subscribe(res => {
-        this.router.navigate(['consultar']);
-      });
+    if (!this.form.valid)
+    {
+      this.form.markAllAsTouched();
+      return alert('Formulario inválido.');
     }
-    else {
-      alert("Inválido");
+
+    let funcionario: Funcionario = Object.assign({}, this.form.value);
+    
+    funcionario.dataAdmissao = moment(funcionario.dataAdmissao.toString()).format('DD/MM/yyyy');
+
+    this.fs.create(funcionario).subscribe(res => {
+      this.router.navigate(['funcionarios/consultar'], {relativeTo: this.route.root});
+    });
+  }
+
+  geraStringAleatoria() {
+    let tamanho = 7;
+    var stringAleatoria = '';
+    var caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (var i = 0; i < tamanho; i++) {
+        stringAleatoria += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
     }
+    this.form.get('matricula').setValue(stringAleatoria.toUpperCase());
+    alert('Matrícula gerada com sucesso!');
   }
 
   configurateForm() {
-
     let controlConfig = {
       validators: [
         Validators.required,

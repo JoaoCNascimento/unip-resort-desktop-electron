@@ -4,6 +4,7 @@ import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Funcionario } from 'src/app/models/Funcionario';
 import { FuncionariosService } from 'src/app/services/api/funcionarios.service';
 import { CepService } from 'src/app/services/cep.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-consultar',
@@ -19,79 +20,83 @@ export class ConsultarComponent implements OnInit {
 
   funcionarios: Funcionario[] = [];
 
-  /*
-  {
-      id: 1,
-      nome: "João Nascimento",
-      cpf: "421.412.412.44",
-      rg: "42.421.421-4",
-      email: "joao.nascimento@email.com",
-      dataNasc: Date.parse("2002-03-24").toString(),
-      telefone: "(13) 994854-4244",
-      cep: "44442-424",
-      rua: "Vila dos camareiros",
-      numero: "condomínio casa 1455",
-      bairro: "Nova Ema",
-      cidade: "Zé Ipiranga",
-      estado: "São Petersburgo",
-      matricula: "421.421-42",
-      cargo: "Administrador",
-      ctps: "444.412-5",
-      dataAdmissao: new Date(),
-      salario: 7000.00
-    },
-    {
-      id: 2,
-      nome: "Braya",
-      cpf: "421.412.412.44",
-      rg: "42.421.421-4",
-      email: "brayem@email.com",
-      dataNasc: Date.parse("2002-03-24").toString(),
-      telefone: "(11) 4142-4244",
-      cep: "09042-424",
-      rua: "Vila dos camareiros",
-      numero: "condomínio casa 551",
-      bairro: "Nova Orlenas",
-      cidade: "Zé Aldemar",
-      estado: "São Walmir",
-      matricula: "652.414-4",
-      cargo: "Recepcionista",
-      ctps: "612.412-8",
-      dataAdmissao: new Date(),
-      salario: 2000.10
-    }  
-  */
-
   constructor(
     private fs: FuncionariosService
-    ,private cepService: CepService
-    ) { }
+    , private cepService: CepService
+  ) { }
+
+  onSubmit() {
+    if(this.form.invalid) {
+      this.form.markAllAsTouched();
+      return alert('Formulário inválido!');
+    }
+
+    let funcionario :Funcionario= Object.assign({}, this.form.value);
+    funcionario.senha = undefined;
+    funcionario.dataAdmissao = moment(funcionario.dataAdmissao.toString()).format('D/MM/yyyy');
+    this.fs.update(funcionario).subscribe(res => {
+      this.findAllFuncionarios();
+    })
+  }
 
   ngOnInit(): void {
     this.findAllFuncionarios();
     this.configurateForm();
   }
 
+  deleteFuncionario(id) {
+    this.fs.delete(id).subscribe(res =>
+      this.findAllFuncionarios()
+    );
+  }
+
   findAllFuncionarios() {
-    this.fs.findAll().subscribe((res) => {
-      if(res)
-        return this.funcionarios = res;
-      
-        return this.funcionarios = [];
+    this.fs.findAll().subscribe((res: Funcionario[]) => {
+      if (res) {
+
+        let resFiltered = res.map((e:any) => {
+          if(!(e.perfis.length === 1))
+            return undefined;
+
+          e.cpf = e.cpf.replace(',', "").replace(".", "").replace('-', "").replace(".", "").replace(".", "");
+          e.rg = e.rg.replace(',', "").replace(".", "").replace('-', "").replace(".", "").replace(".", "")
+          return e;
+        });
+
+        resFiltered = resFiltered.filter(e => {return e !== undefined});
+        
+        return this.funcionarios = resFiltered;
+      }
+        
+      return this.funcionarios = [];
     });
+  }
+
+  geraStringAleatoria() {
+    let tamanho = 7;
+    var stringAleatoria = '';
+    var caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (var i = 0; i < tamanho; i++) {
+        stringAleatoria += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    this.form.get('matricula').setValue(stringAleatoria.toUpperCase());
+    alert('Matrícula gerada com sucesso!');
   }
 
   configurateForm(id?: number) {
     if (id) {
       let funcionario: Funcionario;
-      this.funcionarios.map((e:Funcionario) => {
-        if (e.id === id)
-        {
+      this.funcionarios.map((e: Funcionario) => {
+        if (e.id === id) {
           return funcionario = e;
         }
       });
-  
+
+      let newDataNasc = funcionario.dataNasc.split('/').reverse().join('-');
+      let newDataAdmissao = funcionario.dataAdmissao.toString().split('/').reverse().join('-');
+
       this.form = new FormGroup({
+        id: new FormControl(funcionario.id),
         nome: new FormControl(funcionario.nome, {
           validators: [
             Validators.required,
@@ -100,6 +105,11 @@ export class ConsultarComponent implements OnInit {
         email: new FormControl(funcionario.email, {
           validators: [
             Validators.required,
+          ]
+        }),
+        senha: new FormControl('Criptografada', {
+          validators: [
+            Validators.required
           ]
         }),
         cpf: new FormControl(funcionario.cpf, {
@@ -112,7 +122,7 @@ export class ConsultarComponent implements OnInit {
             Validators.required,
           ]
         }),
-        dataNasc: new FormControl(funcionario.dataNasc, {
+        dataNasc: new FormControl(newDataNasc, {
           validators: [
             Validators.minLength(10),
             Validators.maxLength(12)
@@ -163,7 +173,7 @@ export class ConsultarComponent implements OnInit {
             Validators.required,
           ]
         }),
-        dataAdmissao: new FormControl(funcionario.dataAdmissao, {
+        dataAdmissao: new FormControl(newDataAdmissao, {
           validators: [
             Validators.required,
           ]
@@ -191,6 +201,11 @@ export class ConsultarComponent implements OnInit {
         email: new FormControl(null, {
           validators: [
             Validators.required,
+          ]
+        }),
+        senha: new FormControl(null, {
+          validators: [
+            Validators.required
           ]
         }),
         cpf: new FormControl(null, {
@@ -271,7 +286,7 @@ export class ConsultarComponent implements OnInit {
         }),
       })
     }
-    
+
   }
 
   findCep() {
@@ -297,13 +312,13 @@ export class ConsultarComponent implements OnInit {
     const modalBody = document.getElementById('modal-body');
 
     modal.style.cssText = "display: flex";
-    setTimeout(() => {modalBody.style.cssText = "margin-top: 0%";}, 150);
+    setTimeout(() => { modalBody.style.cssText = "margin-top: 0%"; }, 150);
   }
 
   hideModal() {
     const modal = document.getElementById('modal');
     const modalBody = document.getElementById('modal-body');
-    setTimeout(()=>{modalBody.style.cssText = "margin-top: -105%"}, 50)
-    setTimeout(()=>{modal.style.cssText = "display: none"; this.form.reset();}, 400)
+    setTimeout(() => { modalBody.style.cssText = "margin-top: -105%" }, 50)
+    setTimeout(() => { modal.style.cssText = "display: none"; this.form.reset(); }, 400)
   }
 }

@@ -18,7 +18,7 @@
                 <td>{{categoria.nome}}</td>
                 <td>{{categoria.descricao}}</td>
                 <td>{{categoria.precoDiaria | currency: 'BRL'}}</td>
-                <td><img src="{{categoria.imageUrl ? categoria.imageUrl : 'assets/img-empty.png'}}" alt=""/></td>
+                <td><img src="{{ categoria.imageUrl !== null ? categoria.imageUrl : 'assets/img-empty.png'}}" alt=""/></td>
                 <td>
                     <fa-icon (click)="configurateForm(categoria.id)" class="btn-action" [icon]="faEdit"></fa-icon>
                     <fa-icon (click)="deleteCategoria(categoria.id)" class="btn-action" [icon]="faTrash"></fa-icon>

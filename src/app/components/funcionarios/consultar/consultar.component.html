@@ -30,11 +30,11 @@
                 <td>{{ funcionario.email }}</td>
                 <td>{{ funcionario.cpf | cpf}}</td>
                 <td>{{ funcionario.rg | rg}}</td>
-                <td>{{ funcionario.dataNasc | date: "dd/MM/yyyy"}}</td>
+                <td>{{ funcionario.dataNasc }}</td>
                 <td>{{ funcionario.telefone }}</td>
                 <td>
                     <fa-icon (click)="configurateForm(funcionario.id)" class="btn-action" [icon]="faEdit"></fa-icon>
-                    <fa-icon class="btn-action" [icon]="faTrash"></fa-icon>
+                    <fa-icon class="btn-action" (click)="deleteFuncionario(funcionario.id)" [icon]="faTrash"></fa-icon>
                 </td>
             </tr>
         </tbody>
@@ -53,121 +53,338 @@
     <div id="modal-body" class="modal-body">
         <span (click)="hideModal()" class="modal-close-button">&times;</span>
         <div class="form-container">
-            <form [formGroup]="form">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
             
                 <h3>Dados Pessoais</h3>
-        
-                <div class="fullbox">
-                    <label for="nome">Nome</label>
-                    <input type="text" placeholder="Nome do funcionário" formControlName="nome">
-                </div>
-                <!--  -->
-                <div class="fullbox">
-                    <label for="email">Email</label>
-                    <input type="text" placeholder="Email do funcionário" formControlName="email">
-                </div>
-                <!--  -->
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="cpf">CPF</label>
-                        <input type="text" placeholder="XXX.XXX.XXX-XX" formControlName="cpf">
-                    </div>
-                    <!--  -->
-                    <div class="halfbox">
-                        <label for="rg">RG</label>
-                        <input type="text" placeholder="XX.XXX.XXX-X" formControlName="rg">
-                    </div>
-                </div>
-                <!--  -->
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="cpf">Data de Nascimento</label>
-                        <input type="date" placeholder="dd/mm/aaaa" formControlName="dataNasc">
-                    </div>
-                    <!--  -->
-                    <div class="halfbox">
-                        <label for="telefone">Telefone</label>
-                        <input type="text" placeholder="(XX) XXXXX-XXXX" formControlName="telefone">
-                    </div>
-                </div>
-                <!--  -->
-                <h3>Endereço</h3>
-        
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="cep">CEP</label>
-                        <input type="text" placeholder="XX.XXX-XXX" formControlName="cep" (change)="findCep()">
-                    </div>
-                </div>
-                <!--  -->
-                <div class="fullbox">
-                    <label for="rua">Rua</label>
-                    <input type="text" placeholder="Ex.: Av. Almirante Almeida..." formControlName="rua">
-                </div>
-                <!--  -->
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="">Bairro</label>
-                        <input type="text" placeholder="Ex.: Nova Petersburgo" formControlName="bairro">
-                    </div>
-                    <!--  -->
-                    <div class="halfbox">
-                        <label for="">Número</label>
-                        <input type="text" placeholder="Ex.: 144, andar 10 apartamento 3..." formControlName="numero">
-                    </div>
-                </div>
-                <!--  -->
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="cidade">Cidade</label>
-                        <input type="text" placeholder="Ex.: Praia Grande..." formControlName="cidade">
-                    </div>
-                    <!--  -->
-                    <div class="halfbox">
-                        <label for="estado">Estado</label>
-                        <input type="text" placeholder="Ex.: São Paulo..." formControlName="estado">
-                    </div>
-                </div>
-                <!--  -->
-                
-                <h3>Dados contratação</h3>
-        
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="">Matrícula</label>
-                        <input type="text" placeholder="Código de matrícula gerado" disabled formControlName="matricula">
-                    </div>
-                    <!--  -->
-                    <div class="halfbox">
-                        <button class="btn info">Gerar matrícula</button>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="cpts">CTPS</label>
-                        <input type="text" placeholder="CPTS do funcionário" formControlName="ctps">
-                    </div>
-                    <!--  -->
-                    <div class="halfbox">
-                        <label for="dataAdmissao">Data de admissão</label>
-                        <input type="text" placeholder="Data de admissão prevista" formControlName="dataAdmissao">
-                    </div>
-                </div>
-                <!--  -->
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="cargo">Cargo</label>
-                        <input type="text" placeholder="Cargo do funcionário" formControlName="cargo">
-                    </div>
-                    <!--  -->
-                    <div class="halfbox">
-                        <label for="salario">Salário</label>
-                        <input type="text" placeholder="R$" formControlName="salario">
-                    </div>
-                </div>
-                <!--  -->
-                <button class="btn success">Salvar alterações</button>
+
+    <div class="fullbox">
+      <label for="nome">Nome</label>
+      <input
+        type="text"
+        placeholder="Nome do funcionário"
+        formControlName="nome"
+      />
+      <div
+        *ngIf="
+          form.get('nome').hasError('required') && form.get('nome').touched
+        "
+        class="invalid-feedback"
+      >
+        O nome é obrigatório.
+      </div>
+    </div>
+    <!--  -->
+    <div class="halfbox-container">
+      <div class="halfbox">
+        <label for="cpf">CPF</label>
+        <input type="text" placeholder="XXX.XXX.XXX-XX" formControlName="cpf" />
+        <div
+          *ngIf="
+            form.get('cpf').hasError('required') && form.get('cpf').touched
+          "
+          class="invalid-feedback"
+        >
+          O cpf é obrigatório.
+        </div>
+      </div>
+      <!--  -->
+      <div class="halfbox">
+        <label for="rg">RG</label>
+        <input type="text" placeholder="XX.XXX.XXX-X" formControlName="rg" />
+        <div
+          *ngIf="
+            form.get('rg').hasError('required') && form.get('rg').touched
+          "
+          class="invalid-feedback"
+        >
+          O rg é obrigatório.
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <div class="halfbox-container">
+      <div class="halfbox">
+        <label for="cpf">Data de Nascimento</label>
+        <input
+          type="date"
+          placeholder="dd/mm/aaaa"
+          formControlName="dataNasc"
+        />
+        <div
+          *ngIf="
+            form.get('dataNasc').hasError('required') && form.get('dataNasc').touched
+          "
+          class="invalid-feedback"
+        >
+          A data de nascimento é obrigatória.
+        </div>
+      </div>
+      <!--  -->
+      <div class="halfbox">
+        <label for="telefone">Telefone</label>
+        <input
+          type="text"
+          placeholder="(XX) XXXXX-XXXX"
+          formControlName="telefone"
+        />
+        <div
+          *ngIf="
+            form.get('telefone').hasError('required') && form.get('telefone').touched
+          "
+          class="invalid-feedback"
+        >
+          O telefone é obrigatório.
+        </div>
+      </div>
+    </div>
+    <!--  -->
+
+    <h3>Login</h3>
+    <div class="fullbox">
+      <label for="email">Email</label>
+      <input
+        type="text"
+        placeholder="Email do funcionário"
+        formControlName="email"
+      />
+      <div
+        *ngIf="
+          form.get('email').hasError('required') && form.get('email').touched
+        "
+        class="invalid-feedback"
+      >
+        O email é obrigatório.
+      </div>
+    </div>
+
+    <!-- <div class="halfbox-container"> -->
+    <div class="fullbox">
+      <label for="">Senha</label>
+      <input
+        type="text"
+        formControlName="senha"
+        placeholder="Digite uma senha"
+        name=""
+        id=""
+      />
+      <div
+        *ngIf="
+          form.get('senha').hasError('required') && form.get('senha').touched
+        "
+        class="invalid-feedback"
+      >
+        A senha é obrigatória.
+      </div>
+    </div>
+    <!-- </div> -->
+    <!--  -->
+    <h3>Endereço</h3>
+
+    <div class="halfbox-container">
+      <div class="halfbox">
+        <label for="cep">CEP</label>
+        <input
+          type="text"
+          placeholder="XX.XXX-XXX"
+          formControlName="cep"
+          (change)="findCep()"
+        />
+        <div
+          *ngIf="
+            form.get('cep').hasError('required') && form.get('cep').touched
+          "
+          class="invalid-feedback"
+        >
+          O cep é obrigatório.
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <div class="fullbox">
+      <label for="rua">Rua</label>
+      <input
+        type="text"
+        placeholder="Ex.: Av. Almirante Almeida..."
+        formControlName="rua"
+      />
+      <div
+        *ngIf="
+          form.get('rua').hasError('required') && form.get('rua').touched
+        "
+        class="invalid-feedback"
+      >
+        A rua é obrigatória.
+      </div>
+    </div>
+    <!--  -->
+    <div class="halfbox-container">
+      <div class="halfbox">
+        <label for="">Bairro</label>
+        <input
+          type="text"
+          placeholder="Ex.: Nova Petersburgo"
+          formControlName="bairro"
+        />
+        <div
+          *ngIf="
+            form.get('bairro').hasError('required') && form.get('bairro').touched
+          "
+          class="invalid-feedback"
+        >
+          O bairro é obrigatório.
+        </div>
+      </div>
+      <!--  -->
+      <div class="halfbox">
+        <label for="">Número</label>
+        <input
+          type="text"
+          placeholder="Ex.: 144, andar 10 apartamento 3..."
+          formControlName="numero"
+        />
+        <div
+          *ngIf="
+            form.get('numero').hasError('required') && form.get('numero').touched
+          "
+          class="invalid-feedback"
+        >
+          O número é obrigatório.
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <div class="halfbox-container">
+      <div class="halfbox">
+        <label for="cidade">Cidade</label>
+        <input
+          type="text"
+          placeholder="Ex.: Praia Grande..."
+          formControlName="cidade"
+        />
+        <div
+          *ngIf="
+            form.get('cidade').hasError('required') && form.get('cidade').touched
+          "
+          class="invalid-feedback"
+        >
+          A cidade é obrigatória.
+        </div>
+      </div>
+      <!--  -->
+      <div class="halfbox">
+        <label for="estado">Estado</label>
+        <input
+          type="text"
+          placeholder="Ex.: São Paulo..."
+          formControlName="estado"
+        />
+        <div
+          *ngIf="
+            form.get('estado').hasError('required') && form.get('estado').touched
+          "
+          class="invalid-feedback"
+        >
+          O estado é obrigatório.
+        </div>
+      </div>
+    </div>
+    <!--  -->
+
+    <h3>Dados contratação</h3>
+
+    <div class="halfbox-container">
+      <div class="halfbox">
+        <label for="">Matrícula</label>
+        <input
+          type="text"
+          placeholder="Código de matrícula gerado"
+          disabled
+          formControlName="matricula"
+        />
+        <div
+          *ngIf="
+            form.get('matricula').hasError('required') && form.get('matricula').touched
+          "
+          class="invalid-feedback"
+        >
+          A matricula é obrigatória.
+        </div>
+      </div>
+      <!--  -->
+      <!-- <div class="halfbox">
+        <button type="button" (click)="geraStringAleatoria()" class="btn info">Gerar matrícula</button>
+      </div> -->
+    </div>
+    <!--  -->
+    <div class="halfbox-container">
+      <div class="halfbox">
+        <label for="cpts">CTPS</label>
+        <input
+          type="text"
+          placeholder="CPTS do funcionário"
+          formControlName="ctps"
+        />
+        <div
+          *ngIf="
+            form.get('ctps').hasError('required') && form.get('ctps').touched
+          "
+          class="invalid-feedback"
+        >
+          O ctps é obrigatório.
+        </div>
+      </div>
+      <!--  -->
+      <div class="halfbox">
+        <label for="dataAdmissao">Data de admissão</label>
+        <input
+          type="date"
+          placeholder="Data de admissão prevista"
+          formControlName="dataAdmissao"
+        />
+        <div
+          *ngIf="
+            form.get('dataAdmissao').hasError('required') && form.get('dataAdmissao').touched
+          "
+          class="invalid-feedback"
+        >
+          A data de admissão é obrigatória.
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <div class="halfbox-container">
+      <div class="halfbox">
+        <label for="cargo">Cargo</label>
+        <input
+          type="text"
+          placeholder="Cargo do funcionário"
+          formControlName="cargo"
+        />
+        <div
+          *ngIf="
+            form.get('cargo').hasError('required') && form.get('cargo').touched
+          "
+          class="invalid-feedback"
+        >
+          O cargo é obrigatório.
+        </div>
+      </div>
+      <!--  -->
+      <div class="halfbox">
+        <label for="salario">Salário</label>
+        <input type="text" placeholder="R$" formControlName="salario" />
+        <div
+          *ngIf="
+            form.get('salario').hasError('required') && form.get('salario').touched
+          "
+          class="invalid-feedback"
+        >
+          O salário é obrigatório.
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <button class="btn success">Salvar cadastro</button>
             </form>
         </div>
     </div>

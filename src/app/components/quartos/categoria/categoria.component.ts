@@ -51,7 +51,10 @@ export class CategoriaComponent implements OnInit {
         imageUrl: [categoria.imageUrl]
       });
 
-      this.imgUrlToForm = categoria.imageUrl.toString();
+      if(categoria.imageUrl)
+        this.imgUrlToForm = categoria.imageUrl.toString();
+      else
+        this.imgUrlToForm = 'assets/img-empty.png';
 
       this.revealModal(1);
     }

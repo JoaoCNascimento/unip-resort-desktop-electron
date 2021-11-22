@@ -5,6 +5,8 @@ import { Gerente } from 'src/app/models/Gerente';
 import { GerenteService } from 'src/app/services/api/gerente.service';
 import { CepService } from 'src/app/services/cep.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
@@ -39,7 +41,43 @@ export class UsuariosComponent implements OnInit {
   }
 
   onSubmit() {
+    if(this.form.invalid) {
+      this.form.markAllAsTouched();
+      return alert('Formulário inválido!');
+    }
+      
+    let gerente: Gerente = Object.assign({}, this.form.value);
 
+    gerente.dataAdmissao = moment(gerente.dataAdmissao.toString()).format('D/mm/yyyy');
+
+    this.gs.create(gerente).subscribe(res => {
+      this.findAllGerentes();
+      this.hideModal(0);
+    });
+  }
+
+  onSubmitUpdate() {
+    if(this.form.invalid) {
+      this.form.markAllAsTouched();
+      return alert('Formulário inválido!');
+    }
+      
+    let gerente: Gerente = Object.assign({}, this.form.value);
+    this.gs.update(gerente).subscribe(res => {
+      this.findAllGerentes();
+      this.hideModal(1);
+    });
+  }
+
+  geraStringAleatoria() {
+    let tamanho = 7;
+    var stringAleatoria = '';
+    var caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (var i = 0; i < tamanho; i++) {
+        stringAleatoria += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    this.form.get('matricula').setValue(stringAleatoria.toUpperCase());
+    alert('Matrícula gerada com sucesso!');
   }
 
   configurateForm(id?: number) {
@@ -52,8 +90,13 @@ export class UsuariosComponent implements OnInit {
         }
       });
   
+      let newDataNasc = gerente.dataNasc.split('/').reverse().join('-');
+      let newDataAdmissao = gerente.dataAdmissao.toString().split('/').reverse().join('-');
+
       this.form = new FormGroup({
-        nome: new FormControl(gerente.id, {
+        id: new FormControl(gerente.id),
+
+        nome: new FormControl(gerente.nome, {
           validators: [
             Validators.required,
           ]
@@ -68,11 +111,6 @@ export class UsuariosComponent implements OnInit {
             Validators.required
           ]
         }),
-        confirmarSenha: new FormControl('Confirme a nova senha', {
-          validators: [
-            Validators.required
-          ]
-        }),
         cpf: new FormControl(gerente.cpf, {
           validators: [
             Validators.required,
@@ -83,7 +121,7 @@ export class UsuariosComponent implements OnInit {
             Validators.required,
           ]
         }),
-        dataNasc: new FormControl(gerente.dataNasc, {
+        dataNasc: new FormControl(newDataNasc, {
           validators: [
             Validators.minLength(10),
             Validators.maxLength(12)
@@ -134,7 +172,7 @@ export class UsuariosComponent implements OnInit {
             Validators.required,
           ]
         }),
-        dataAdmissao: new FormControl(gerente.dataAdmissao, {
+        dataAdmissao: new FormControl(newDataAdmissao, {
           validators: [
             Validators.required,
           ]
@@ -145,6 +183,11 @@ export class UsuariosComponent implements OnInit {
           ]
         }),
         salario: new FormControl(gerente.salario, {
+          validators: [
+            Validators.required,
+          ]
+        }),
+        bonificacao: new FormControl(gerente.bonificacao, {
           validators: [
             Validators.required,
           ]
@@ -241,6 +284,11 @@ export class UsuariosComponent implements OnInit {
           ]
         }),
         salario: new FormControl(null, {
+          validators: [
+            Validators.required,
+          ]
+        }),
+        bonificacao: new FormControl(null, {
           validators: [
             Validators.required,
           ]
