@@ -6,6 +6,7 @@
   font-family: 'Zen Maru Gothic', Roboto, "Segoe UI", "sans-serif", "arial";
   margin: 0;
   padding: 0;
+  outline: none;
   box-sizing: border-box;
 }
 
@@ -223,7 +224,6 @@ a:hover {
 .halfbox {
   flex-direction: column;
   padding: 3px;
-  margin-bottom: 10px;
 }
 
 .fullbox {
@@ -250,6 +250,9 @@ input:not(input[type="file"]),
 textarea {
   padding: 5px;
   font-size: 1rem;
+  margin-bottom: 5px;
+  border: 1px solid rgba(133, 131, 131, 0.692);
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 530px) {
@@ -277,4 +280,24 @@ textarea {
   margin: auto;
   border-radius: 5px;
   color: white;
+}
+
+.invalid-feedback {
+  color: rgb(199, 92, 92);
+  padding: 5px 0px;
+}
+
+.ng-touched.ng-invalid:not(form) {
+  border: 1px solid rgb(199, 92, 92);
+  box-shadow: 0px 0px 2px rgb(221, 70, 70);
+}
+
+.ng-touched.ng-invalid:not(form):focus {
+  box-shadow: 0px 0px 3px rgb(221, 70, 70);
+  outline: 1px solid rgb(221, 70, 70);
+}
+
+input:focus {
+  box-shadow: 0px 0px 3px rgba(34, 130, 240, 0.76);
+  outline: 1px solid rgb(52, 140, 240);
 }
