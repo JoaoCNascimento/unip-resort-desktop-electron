@@ -1,7 +1,7 @@
 <div id="container">
-  <div class="aside" *ngIf="authService.token"> 
+  <div class="aside" *ngIf="authService.token">
     <a routerLink="/">
-      <img src="assets/unip-resort-logo.png">
+      <img src="assets/unip-resort-logo.png" />
     </a>
     <!--  -->
     <div class="item">
@@ -9,9 +9,7 @@
         <div class="item-icon">
           <fa-icon [icon]="faUser"></fa-icon>
         </div>
-        <div class="item-title">
-          Funcionários
-        </div>
+        <div class="item-title">Funcionários</div>
       </div>
       <!--  -->
       <div class="dropdown">
@@ -30,9 +28,7 @@
         <div class="item-icon">
           <fa-icon [icon]="faBed"></fa-icon>
         </div>
-        <div class="item-title">
-          Quartos
-        </div>
+        <div class="item-title">Quartos</div>
       </div>
       <!--  -->
       <div class="dropdown">
@@ -49,35 +45,16 @@
     <div class="item">
       <div class="item-heading">
         <div class="item-icon">
-          <fa-icon [icon]="faBook"></fa-icon>
-        </div>
-        <div class="item-title">
-          Relatórios
-        </div>
-      </div>
-      <!--  -->
-      <div class="dropdown">
-        <a routerLink="relatorios" class="item dropdown-item">
-          Gerar Relatório
-        </a>
-      </div>
-    </div>
-    <!--  -->
-    <div class="item">
-      <div class="item-heading">
-        <div class="item-icon">
           <fa-icon [icon]="faEmail"></fa-icon>
         </div>
-        <div class="item-title">
-          Email
-        </div>
+        <div class="item-title">Email</div>
       </div>
-      <!--  -->
+
       <div class="dropdown">
         <a routerLink="email/email-clientes" class="item dropdown-item">
           Clientes
         </a>
-        <!--  -->
+
         <a routerLink="email/email-funcionarios" class="item dropdown-item">
           Funcionários
         </a>
@@ -89,9 +66,7 @@
         <div class="item-icon">
           <fa-icon [icon]="faTools"></fa-icon>
         </div>
-        <div class="item-title">
-          Manutenção
-        </div>
+        <div class="item-title">Manutenção</div>
       </div>
       <!--  -->
       <div class="dropdown">
@@ -107,15 +82,11 @@
         <div class="item-icon">
           <fa-icon [icon]="faCog"></fa-icon>
         </div>
-        <div class="item-title">
-          Configurações
-        </div>
+        <div class="item-title">Configurações</div>
       </div>
       <!--  -->
       <div routerLink="configuracoes/usuarios" class="dropdown">
-        <a class="item dropdown-item">
-          Usuários
-        </a>
+        <a class="item dropdown-item"> Usuários </a>
         <!--  -->
       </div>
     </div>
@@ -125,11 +96,9 @@
         <div class="item-icon">
           <fa-icon [icon]="faDoor"></fa-icon>
         </div>
-        <div class="item-title">
-          Sair
-        </div>
+        <div class="item-title">Sair</div>
       </div>
-    </a>  
+    </a>
   </div>
   <!--  -->
   <div class="routes-container">
@@ -137,3 +106,28 @@
   </div>
   <app-loader></app-loader>
 </div>
+
+<!-- 
+
+
+      <div class="item">
+      <div class="item-heading">
+        <div class="item-icon">
+          <fa-icon [icon]="faBook"></fa-icon>
+        </div>
+        <div class="item-title">
+          Relatórios
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a routerLink="relatorios" class="item dropdown-item">
+          Gerar Relatório
+        </a>
+      </div>
+    </div>
+
+
+    </div>
+
+ -->
