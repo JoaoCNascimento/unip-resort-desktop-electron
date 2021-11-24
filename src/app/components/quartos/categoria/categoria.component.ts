@@ -59,6 +59,7 @@ export class CategoriaComponent implements OnInit {
       this.revealModal(1);
     }
     else {
+      this.imgUrlToForm = 'assets/img-empty.png'
       return this.form = this.fb.group({
         nome: ['', Validators.required],
         descricao: ['', Validators.required],

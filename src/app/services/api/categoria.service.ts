@@ -51,7 +51,8 @@ export class CategoriaService {
     const formData = new FormData();
     formData.append('file', image)
     return this.httpClient.post(this.baseUrl + '/picture/' + id, formData).pipe(
-      tap(res => this.successMessage('Imagem salva com êxito!'))
+      tap(res => this.successMessage('Imagem salva com êxito!')),
+      catchError(er => {this.handleError(er); return er;})
     );
   }
 
@@ -67,6 +68,7 @@ export class CategoriaService {
   }
 
   handleError(er: any, error_message?: string) {
+
     if (error_message) {
       return this.toastrService.error(error_message, "Ocorreu um erro.");
     }
@@ -74,6 +76,10 @@ export class CategoriaService {
     if (er.error.error === "Forbidden") {
       this.toastrService.warning("Faça o login novamente", "Sessão expirada...", { timeOut: 3000 });
       return this.authService.setToken();
+    }
+
+    if(er.status === 400) {
+      return this.toastrService.warning(er.error.message);
     }
 
     return this.toastrService.error("Verifique sua conexão e tente novamente", "Houve um erro...");
