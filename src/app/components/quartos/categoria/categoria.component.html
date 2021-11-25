@@ -149,18 +149,20 @@
                 class="image-preview-image"
               />
             </div>
-
-            <div>
-              <label for="category-image">Selecione uma imagem</label>
-              <br />
-              <input
-                #fileModify
-                type="file"
-                name="category-image"
-                accept=".png, .jpg, .jpeg"
-                (change)="setImagePreview(fileModify.files, 1)"
-              />
-            </div>
+            <button type="button" (click)="fileModify.click()" class="btn info">
+              Escolher imagem
+            </button>
+            <label for="category-image">{{
+              img ? img.name : "Nenhum arquivo selecionado"
+            }}</label>
+            <input
+              #fileModify
+              style="display: none"
+              type="file"
+              name="category-image"
+              accept=".png, .jpg, .jpeg"
+              (change)="setImagePreview(fileModify.files, 1)"
+            />
           </div>
           <!--  -->
           <div class="form-group">

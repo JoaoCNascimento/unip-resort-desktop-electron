@@ -32,9 +32,10 @@ export class CategoriaComponent implements OnInit {
   }
 
   getCategorias() {
-    this.cs.findAll().subscribe(res => {
-      this.categorias = res;
-      this.categorias.sort(c => c.id)
+    this.cs.findAll().subscribe((res: Categoria[]) => {
+      this.categorias = res.map(c => {
+        return c;
+      });
     })
   }
 
@@ -82,7 +83,7 @@ export class CategoriaComponent implements OnInit {
         let savedId = res.headers.get('Location').split('/')[4];
         this.cs.uploadImage(this.img, savedId).subscribe(
           res => {
-            this.getCategorias(); console.log(categoria); this.hideModal(0);  
+            this.getCategorias(); this.hideModal(0);  
           }
         );
       }
@@ -97,13 +98,13 @@ export class CategoriaComponent implements OnInit {
     let categoriaId = categoria.id;
     this.cs.update(categoria).subscribe(
       (res: any) => {
+        console.log(this.img, this.imgUrlToForm);
         this.cs.uploadImage(this.img, categoriaId).subscribe(
           res => {
-            this.getCategorias();  
+            this.getCategorias();
+            this.hideModal(1);   
           }
         );
-        this.getCategorias();
-        this.hideModal(1); 
       }
     );
   }
@@ -119,7 +120,6 @@ export class CategoriaComponent implements OnInit {
 
       reader.addEventListener("load", () => {
         previewImage.setAttribute("src", reader.result.toString());
-        this.form.get('imageUrl').setValue(reader.result.toString());
       })
 
       reader.readAsDataURL(file);
@@ -136,6 +136,11 @@ export class CategoriaComponent implements OnInit {
   }
 
   hideModal(modal_index: number) {
+    this.img = null;
+    setTimeout(() => {
+      const previewImage = document.querySelectorAll('.image-preview-image')[modal_index];
+      previewImage.setAttribute("src", '');
+    }, 1000);
     const modal: any = document.querySelectorAll('.modal-container')[modal_index];
     const modalBody: any = document.querySelectorAll('.modal-body')[modal_index];
     setTimeout(() => { modalBody.style.cssText = "margin-top: -105%" }, 50)
