@@ -22,7 +22,7 @@
           <img
             src="{{
               categoria.imageUrl !== null
-                ? categoria.imageUrl
+                ? categoria.imageUrl + '?_ts' + dataAtual
                 : 'assets/img-empty.png'
             }}"
             alt=""
@@ -48,6 +48,7 @@
 
 <div class="controls">
   <a (click)="revealModal(0)">Criar nova categoria</a>
+  <a (click)="getCategorias()">Atualizar</a>
 </div>
 <!--  -->
 <div class="modal-container">
@@ -187,7 +188,7 @@
 
             <div class="btn-double-container">
               <button class="btn success">Salvar alterações</button>
-              <button class="btn danger">Excluir categoria</button>
+              <!-- <button class="btn danger">Excluir categoria</button> -->
             </div>
           </div>
         </form>

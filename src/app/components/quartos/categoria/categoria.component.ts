@@ -15,10 +15,12 @@ export class CategoriaComponent implements OnInit {
   faTrash = faTrash;
   faEdit = faEdit;
 
-  img: File;
+  img: File = null;
   imgUrlToForm: String = ''; 
 
   form: FormGroup;
+
+  dataAtual: string;
 
   categorias: Categoria[] = [];
 
@@ -35,14 +37,12 @@ export class CategoriaComponent implements OnInit {
 
   getCategorias() {
     this.cs.findAll().subscribe((res: Categoria[]) => {
-      this.categorias = res.map(c => {
-        return c;
-      });
+      this.categorias = res;
     })
   }
 
   configurateForm(id?: number) {
-    this.imgUrlToForm = '';
+    // this.imgUrlToForm = '';
     if (id) {
       let categoria: Categoria = this.categorias.filter(c => c.id === id)[0];
 
@@ -71,7 +71,6 @@ export class CategoriaComponent implements OnInit {
     }
   }
 
-  // TODO - validação de formulário e tratamento de campos inválidos.
   onSubmit() {
     if (!this.form.valid)
       return this.toastrService.info('Verifique se os campos foram preenchidos corretamente.','Formulário inválido...');
@@ -85,6 +84,7 @@ export class CategoriaComponent implements OnInit {
         let savedId = res.headers.get('Location').split('/')[4];
         this.cs.uploadImage(this.img, savedId).subscribe(
           res => {
+            this.dataAtual = new Date().getMilliseconds().toString();
             this.getCategorias(); this.hideModal(0);  
           }
         );
@@ -100,13 +100,17 @@ export class CategoriaComponent implements OnInit {
     let categoriaId = categoria.id;
     this.cs.update(categoria).subscribe(
       (res: any) => {
-        console.log(this.img, this.imgUrlToForm);
-        this.cs.uploadImage(this.img, categoriaId).subscribe(
-          res => {
-            this.getCategorias();
-            this.hideModal(1);   
-          }
-        );
+        if(this.img === null) {
+          this.getCategorias(); this.hideModal(1);
+        }
+        else 
+          this.cs.uploadImage(this.img, categoriaId).subscribe(
+            res => {
+              this.dataAtual = new Date().getMilliseconds().toString();
+              this.getCategorias();
+                this.hideModal(1);   
+            }
+          );
       }
     );
   }
@@ -138,7 +142,6 @@ export class CategoriaComponent implements OnInit {
   }
 
   hideModal(modal_index: number) {
-    this.img = null;
     setTimeout(() => {
       const previewImage = document.querySelectorAll('.image-preview-image')[modal_index];
       previewImage.setAttribute("src", '');
