@@ -5,6 +5,7 @@ import { Funcionario } from 'src/app/models/Funcionario';
 import { FuncionariosService } from 'src/app/services/api/funcionarios.service';
 import { CepService } from 'src/app/services/cep.service';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-consultar',
@@ -23,12 +24,13 @@ export class ConsultarComponent implements OnInit {
   constructor(
     private fs: FuncionariosService
     , private cepService: CepService
+    , private toastrService: ToastrService
   ) { }
 
   onSubmit() {
     if(this.form.invalid) {
       this.form.markAllAsTouched();
-      return alert('Formulário inválido!');
+      return this.toastrService.warning('Verifique se todos os campos foram preenchidos corretamente.','Formulário inválido...');
     }
 
     let funcionario :Funcionario= Object.assign({}, this.form.value);
@@ -80,7 +82,7 @@ export class ConsultarComponent implements OnInit {
         stringAleatoria += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
     }
     this.form.get('matricula').setValue(stringAleatoria.toUpperCase());
-    alert('Matrícula gerada com sucesso!');
+    this.toastrService.info('Matrícula gerada com sucesso!');
   }
 
   configurateForm(id?: number) {
@@ -298,7 +300,7 @@ export class ConsultarComponent implements OnInit {
     console.log(obj);
 
     if (obj.erro) {
-      return alert("Cep não encontrado");
+      return this.toastrService.warning("Cep não encontrado");
     }
 
     this.form.get('rua').setValue(obj.logradouro);

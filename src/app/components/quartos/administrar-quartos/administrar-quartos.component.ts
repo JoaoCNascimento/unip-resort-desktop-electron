@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Form, FormControl, FormGroup, Validators } from "@angular/forms";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ToastrService } from "ngx-toastr";
 import { Categoria } from "src/app/models/Categoria";
 import { Quarto } from "src/app/models/Quarto";
 import { CategoriaService } from "src/app/services/api/categoria.service";
@@ -33,7 +34,10 @@ export class AdministrarQuartosComponent implements OnInit {
 
   researchForm: FormGroup;
 
-  constructor(private qs: QuartoService, private cs: CategoriaService) {}
+  constructor(
+    private qs: QuartoService
+    , private cs: CategoriaService
+    , private toastrService: ToastrService) {}
 
   ngOnInit(): void {
     this.configurateForm();
@@ -43,7 +47,7 @@ export class AdministrarQuartosComponent implements OnInit {
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      return alert("Formulário inválido!");
+      return this.toastrService.warning('Verifique se todos os campos foram preenchidos corretamente.',"Formulário inválido...");
     }
 
     let quarto = Object.assign({}, this.form.value);
@@ -57,7 +61,7 @@ export class AdministrarQuartosComponent implements OnInit {
   onSubmitUpdate() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      return alert("Formulário inválido!");
+      return this.toastrService.warning('Verifique se todos os campos foram preenchidos corretamente.',"Formulário inválido...");
     }
 
     let quarto = Object.assign({}, this.form.value);

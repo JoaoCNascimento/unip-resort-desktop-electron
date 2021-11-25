@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 import { Categoria } from 'src/app/models/Categoria';
 import { CategoriaService } from 'src/app/services/api/categoria.service';
 
@@ -23,7 +24,8 @@ export class CategoriaComponent implements OnInit {
 
   constructor(
     private cs: CategoriaService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -72,7 +74,7 @@ export class CategoriaComponent implements OnInit {
   // TODO - validação de formulário e tratamento de campos inválidos.
   onSubmit() {
     if (!this.form.valid)
-      return alert('Formulário inválido!');
+      return this.toastrService.info('Verifique se os campos foram preenchidos corretamente.','Formulário inválido...');
 
     let categoria: Categoria = Object.assign({}, this.form.value);
 
@@ -92,7 +94,7 @@ export class CategoriaComponent implements OnInit {
 
   onSubmitUpdateCategoria() {
     if (!this.form.valid)
-      return alert('Formulário inválido!');
+      return this.toastrService.warning('','Formulário inválido...');
 
     let categoria: Categoria = Object.assign({}, this.form.value);
     let categoriaId = categoria.id;
