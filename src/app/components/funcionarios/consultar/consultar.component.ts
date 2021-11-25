@@ -33,11 +33,14 @@ export class ConsultarComponent implements OnInit {
       return this.toastrService.warning('Verifique se todos os campos foram preenchidos corretamente.','Formulário inválido...');
     }
 
+    if(this.form.get('senha').value === 'Digite uma nova senha')
+      return this.toastrService.warning('Para salvar as alterações digite a senha antiga do funcionário ou insira uma nova','',{timeOut: 5000});
+
     let funcionario :Funcionario= Object.assign({}, this.form.value);
-    funcionario.senha = undefined;
     funcionario.dataAdmissao = moment(funcionario.dataAdmissao.toString()).format('D/MM/yyyy');
     this.fs.update(funcionario).subscribe(res => {
       this.findAllFuncionarios();
+      this.hideModal();
     })
   }
 
@@ -109,7 +112,7 @@ export class ConsultarComponent implements OnInit {
             Validators.required,
           ]
         }),
-        senha: new FormControl('Criptografada', {
+        senha: new FormControl('Digite uma nova senha', {
           validators: [
             Validators.required
           ]
