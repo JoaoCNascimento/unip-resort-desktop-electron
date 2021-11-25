@@ -23,7 +23,12 @@ export class CategoriaService {
 
   findAll(): Observable<any> {
     return this.httpClient.get<any[]>(this.baseUrl).pipe(
-      tap(res => { this.successMessage('Categorias encontradas com êxito!'); return res }),
+      tap(res => { 
+        this.successMessage('Categorias encontradas com êxito!'); 
+        res = res.map((c: Categoria) => {
+        c.imageUrl = 'https://pim-unip-resort.s3.sa-east-1.amazonaws.com/' + c.imageUrl; }); 
+        return res; 
+      }),
       catchError(er => { this.handleError(er); return er })
     );
   }
