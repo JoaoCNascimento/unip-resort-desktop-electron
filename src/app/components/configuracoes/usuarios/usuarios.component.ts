@@ -6,6 +6,7 @@ import { GerenteService } from 'src/app/services/api/gerente.service';
 import { CepService } from 'src/app/services/cep.service';
 
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-usuarios',
@@ -23,7 +24,8 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private cepService: CepService,
-    private gs: GerenteService
+    private gs: GerenteService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class UsuariosComponent implements OnInit {
   onSubmit() {
     if(this.form.invalid) {
       this.form.markAllAsTouched();
-      return alert('Formulário inválido!');
+      return this.toastrService.warning('Verifique se os campos foram preenchidos corretamente.', 'Formulário inválido!');
     }
       
     let gerente: Gerente = Object.assign({}, this.form.value);
@@ -59,7 +61,7 @@ export class UsuariosComponent implements OnInit {
   onSubmitUpdate() {
     if(this.form.invalid) {
       this.form.markAllAsTouched();
-      return alert('Formulário inválido!');
+      return this.toastrService.warning('Verifique se os campos foram preenchidos corretamente.', 'Formulário inválido!');
     }
       
     let gerente: Gerente = Object.assign({}, this.form.value);
@@ -77,7 +79,7 @@ export class UsuariosComponent implements OnInit {
         stringAleatoria += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
     }
     this.form.get('matricula').setValue(stringAleatoria.toUpperCase());
-    alert('Matrícula gerada com sucesso!');
+    this.toastrService.info('Matrícula gerada com sucesso!');
   }
 
   configurateForm(id?: number) {
@@ -305,7 +307,7 @@ export class UsuariosComponent implements OnInit {
   changeAdressValues(obj) {
 
     if (obj.erro) {
-      return alert("Cep não encontrado");
+      return this.toastrService.warning("Cep não encontrado");
     }
 
     this.form.get('rua').setValue(obj.logradouro);
