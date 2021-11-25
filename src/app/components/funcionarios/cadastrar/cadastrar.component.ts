@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { Funcionario } from 'src/app/models/Funcionario';
 import { FuncionariosService } from 'src/app/services/api/funcionarios.service';
 import { CepService } from 'src/app/services/cep.service';
@@ -19,7 +20,8 @@ export class CadastrarComponent implements OnInit {
     private cepService: CepService,
     private fs: FuncionariosService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +32,7 @@ export class CadastrarComponent implements OnInit {
     if (!this.form.valid)
     {
       this.form.markAllAsTouched();
-      return alert('Formulario inválido.');
+      return this.toastrService.warning('Verifique se os campos foram preenchidos corretamente.', 'Formulário inválido...');
     }
 
     let funcionario: Funcionario = Object.assign({}, this.form.value);
@@ -50,7 +52,7 @@ export class CadastrarComponent implements OnInit {
         stringAleatoria += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
     }
     this.form.get('matricula').setValue(stringAleatoria.toUpperCase());
-    alert('Matrícula gerada com sucesso!');
+    this.toastrService.info('Matrícula gerada com sucesso!');
   }
 
   configurateForm() {
@@ -168,10 +170,8 @@ export class CadastrarComponent implements OnInit {
 
   changeAdressValues(obj) {
 
-    console.log(obj);
-
     if (obj.erro) {
-      return alert("Cep não encontrado");
+      return this.toastrService.warning("Cep não encontrado");
     }
 
     this.form.get('rua').setValue(obj.logradouro);
