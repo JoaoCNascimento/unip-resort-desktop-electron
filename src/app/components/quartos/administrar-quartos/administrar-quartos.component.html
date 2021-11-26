@@ -80,7 +80,7 @@
         <div class="fullbox">
           <label for="">Categoria</label>
           <select formControlName="categoria">
-            <option disabled value="placeholder">Selecione uma categoria</option>
+            <option disabled value="0">Selecione uma categoria</option>
             <option
               value="{{ categoria.id }}"
               *ngFor="let categoria of categorias"
@@ -164,7 +164,7 @@
           <div class="fullbox">
             <label for="">Categoria</label>
             <select formControlName="categoria">
-              <option disabled value="">Selecione uma categoria</option>
+              <option disabled value="0">Selecione uma categoria</option>
               <option
                 value="{{ categoria.id }}"
                 *ngFor="let categoria of categorias"

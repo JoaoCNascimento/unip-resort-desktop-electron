@@ -52,6 +52,8 @@ export class AdministrarQuartosComponent implements OnInit {
 
     let quarto = Object.assign({}, this.form.value);
 
+    quarto.id = undefined;
+
     this.qs.create(quarto).subscribe((res) => {
       this.getQuartos();
       this.hideModal(0);
@@ -90,7 +92,6 @@ export class AdministrarQuartosComponent implements OnInit {
   }
 
   configurateForm(id?: number) {
-    this.quarto = null;
     if (id) {
       let quarto: Quarto;
 
@@ -125,7 +126,7 @@ export class AdministrarQuartosComponent implements OnInit {
 
     return (this.form = new FormGroup({
       id: new FormControl(null),
-      categoria: new FormControl('placeholder', { validators: [Validators.required] }),
+      categoria: new FormControl(0, { validators: [Validators.required] }),
       numero: new FormControl(null, { validators: [Validators.required] }),
       andar: new FormControl(null, { validators: [Validators.required] }),
     }));
