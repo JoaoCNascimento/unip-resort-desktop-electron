@@ -21,6 +21,11 @@ Para buildar o projeto para desktop com electron:
 2. Use o comando `npm i -d` para instalar as dependências
 3. Inicie o build do projeto com: `npm start`
 
+Para gerar o programa e seus binários:
+
+1. use o comando `npm run build`
+2. inicie a geração com `npm run pack:win64`
+
 Obs.: 
 
  - É necessário ter Node Js, qualquer versão acima da 14, instalado para usar os comandos aqui descritos.

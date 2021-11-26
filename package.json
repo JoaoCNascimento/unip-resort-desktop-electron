@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start": "ng build --base-href ./ && electron .",
-    "install-gen": "electron-packager ."
+    "pack:win64": "electron-packager . \"Unip Resort - Gestão\" --platform=win32 --arch=x64 app-version=1.0 --icon=favicon.ico"
   },
   "private": true,
   "dependencies": {
