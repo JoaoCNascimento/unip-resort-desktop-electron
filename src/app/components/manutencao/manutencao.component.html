@@ -1,117 +1,263 @@
 <h2 class="header">Manutenção</h2>
 <div>
-    <div class="table-container">
-        <table *ngIf="manutencoes.length > 0">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Descrição</th>
-                    <th>Data Início</th>
-                    <th>Data Fim</th>
-                    <th>Custos (R$)</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let manutencao of manutencoes">
-                    <td>{{ manutencao.id }}</td>
-                    <td>{{ manutencao.descricao }}</td>
-                    <td>{{ manutencao.dataInicio | date: 'dd/MM/yyyy' }}</td>
-                    <td>{{ manutencao.dataFim | date: 'dd/MM/yyyy' }}</td>
-                    <td>{{ manutencao.custos | currency: 'BRL' }}</td>
-                    <td>
-                        <fa-icon (click)="configurateForm(manutencao.id)" class="btn-action" [icon]="faEdit"></fa-icon>
-                        <fa-icon class="btn-action" [icon]="faTrash"></fa-icon>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <p *ngIf="!manutencoes || manutencoes.length == 0">Não há manutenções no histórico.</p>
-    </div>
+  <div class="table-container">
+    <table *ngIf="manutencoes.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Descrição</th>
+          <th>Data Início</th>
+          <th>Data Fim</th>
+          <th>Custos (R$)</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let manutencao of manutencoes">
+          <td>{{ manutencao.id }}</td>
+          <td>{{ manutencao.descricao }}</td>
+          <td>{{ manutencao.dataInicio }}</td>
+          <td>{{ manutencao.dataFim }}</td>
+          <td>{{ manutencao.custos | currency: "BRL" }}</td>
+          <td>
+            <fa-icon
+              (click)="configurateForm(manutencao.id)"
+              class="btn-action"
+              [icon]="faEdit"
+            ></fa-icon>
+            <fa-icon (click)="deleteManutencao(manutencao.id)" class="btn-action" [icon]="faTrash"></fa-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="!manutencoes || manutencoes.length == 0">
+      Não há manutenções no histórico.
+    </p>
+  </div>
 
-    <div class="caption-container">
-        <h4>Legendas</h4>
-        <p><fa-icon [icon]="faEdit"></fa-icon> - Ver e editar </p>   
-        <p><fa-icon [icon]="faTrash"></fa-icon> - Excluir </p>
-    </div>
+  <div class="caption-container">
+    <h4>Legendas</h4>
+    <p><fa-icon [icon]="faEdit"></fa-icon> - Ver e editar</p>
+    <p><fa-icon [icon]="faTrash"></fa-icon> - Excluir</p>
+  </div>
 
-    <div class="controls">
-        <a (click)="revealModal(0)">Adicionar Manutenção</a>
-    </div>
+  <div class="controls">
+    <a (click)="revealModal(0)">Adicionar Manutenção</a>
+  </div>
 </div>
 
 <div class="modal-container">
-    <div class="modal-body">
-        <span (click)="hideModal(0)" class="modal-close-button">&times;</span>
-        <div class="form-container">
-            <form [formGroup]="form">
-                <h3>Nova manutenção</h3>
-                <div class="fullbox">
-                    <label for="">Descrição</label>
-                    <input type="text" placeholder="Ex.: Limpeza de piscina, organização do armazém..." formControlName="descricao" >
-                </div>
-                <!--  -->
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="">Data de início</label>
-                        <input type="date" formControlName="dataInicio" >
-                    </div>
-                    <!--  -->
-                    <div class="halfbox">
-                        <label for="">Data de término</label>
-                        <input type="date" formControlName="dataFim" >
-                    </div>
-                </div>
-                <!--  -->
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="">Custos</label>
-                        <input type="text" placeholder="R$" formControlName="custos" >
-                    </div>
-                </div>
-                <!--  -->
-                <div class="fullbox">
-                    <button class="btn success">Salvar</button>
-                </div>
-            </form>
+  <div class="modal-body">
+    <span (click)="hideModal(0)" class="modal-close-button">&times;</span>
+    <div class="form-container">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <h3>Nova manutenção</h3>
+        <div class="fullbox">
+          <label for="">Descrição</label>
+          <input
+            type="text"
+            placeholder="Ex.: Limpeza de piscina, organização do armazém..."
+            formControlName="descricao"
+          />
+          <div
+            *ngIf="
+              form.get('descricao').hasError('required') &&
+              form.get('descricao').touched
+            "
+            class="invalid-feedback"
+          >
+            A descrição é obrigatória.
+          </div>
+          <!--  -->
+          <div
+            *ngIf="
+              form.get('descricao').hasError('minlength') &&
+              form.get('descricao').touched
+            "
+            class="invalid-feedback"
+          >
+            A descrição deve ter o mínimo de 5 caracteres.
+          </div>
         </div>
+        <!--  -->
+        <div class="halfbox-container">
+          <div class="halfbox">
+            <label for="">Data de início</label>
+            <input type="datetime-local" formControlName="dataInicio" />
+            <div
+              *ngIf="
+                form.get('dataInicio').hasError('required') &&
+                form.get('dataInicio').touched
+              "
+              class="invalid-feedback"
+            >
+              A data de ínicio é obrigatório.
+            </div>
+            <!--  -->
+            <div
+              *ngIf="
+                form.get('dataInicio').hasError('minlength') &&
+                form.get('dataInicio').touched
+              "
+              class="invalid-feedback"
+            >
+              Formato de data inválida.
+            </div>
+          </div>
+          <!--  -->
+          <div class="halfbox">
+            <label for="">Data de término</label>
+            <input type="datetime-local" formControlName="dataFim" />
+            <div
+              *ngIf="
+                form.get('dataFim').hasError('required') &&
+                form.get('dataFim').touched
+              "
+              class="invalid-feedback"
+            >
+              A data de fim é obrigatória.
+            </div>
+            <!--  -->
+            <div
+              *ngIf="
+                form.get('dataFim').hasError('minlength') &&
+                form.get('dataFim').touched
+              "
+              class="invalid-feedback"
+            >
+              Formato de data inválida.
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="halfbox-container">
+          <div class="halfbox">
+            <label for="">Custos</label>
+            <input type="text" placeholder="R$" formControlName="custos" />
+            <div
+              *ngIf="
+                form.get('custos').hasError('required') &&
+                form.get('custos').touched
+              "
+              class="invalid-feedback"
+            >
+              O custo é obrigatório.
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="fullbox">
+          <button type="submit" class="btn success">Salvar</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 
 <div class="modal-container">
-    <div class="modal-body">
-        <span (click)="hideModal(1)" class="modal-close-button">&times;</span>
-        <div class="form-container">
-            <form [formGroup]="form">
-                <h3>Editar manutenção</h3>
-                <div class="fullbox">
-                    <label for="">Descrição</label>
-                    <input type="text" placeholder="Ex.: Limpeza de piscina, organização do armazém..." formControlName="descricao" >
-                </div>
-                <!--  -->
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="">Data de início</label>
-                        <input type="date" formControlName="dataInicio" >
-                    </div>
-                    <!--  -->
-                    <div class="halfbox">
-                        <label for="">Data de término</label>
-                        <input type="date" formControlName="dataFim" >
-                    </div>
-                </div>
-                <!--  -->
-                <div class="halfbox-container">
-                    <div class="halfbox">
-                        <label for="">Custos</label>
-                        <input type="text" placeholder="R$" formControlName="custos" >
-                    </div>
-                </div>
-                <!--  -->
-                <div class="fullbox">
-                    <button class="btn success">Salvar</button>
-                </div>
-            </form>
+  <div class="modal-body">
+    <span (click)="hideModal(1)" class="modal-close-button">&times;</span>
+    <div class="form-container">
+      <form [formGroup]="form" (ngSubmit)="onSubmitUpdate()">
+        <h3>Editar manutenção</h3>
+        <div class="fullbox">
+          <label for="">Descrição</label>
+          <input
+            type="text"
+            placeholder="Ex.: Limpeza de piscina, organização do armazém..."
+            formControlName="descricao"
+          />
+          <div
+            *ngIf="
+              form.get('descricao').hasError('required') &&
+              form.get('descricao').touched
+            "
+            class="invalid-feedback"
+          >
+            A descrição é obrigatória.
+          </div>
+          <!--  -->
+          <div
+            *ngIf="
+              form.get('descricao').hasError('minlength') &&
+              form.get('descricao').touched
+            "
+            class="invalid-feedback"
+          >
+            A descrição deve ter o mínimo de 5 caracteres.
+          </div>
         </div>
+        <!--  -->
+        <div class="halfbox-container">
+          <div class="halfbox">
+            <label for="">Data de início</label>
+            <input type="datetime-local" formControlName="dataInicio" />
+            <div
+              *ngIf="
+                form.get('dataInicio').hasError('required') &&
+                form.get('dataInicio').touched
+              "
+              class="invalid-feedback"
+            >
+              A data de ínicio é obrigatório.
+            </div>
+            <!--  -->
+            <div
+              *ngIf="
+                form.get('dataInicio').hasError('minlength') &&
+                form.get('dataInicio').touched
+              "
+              class="invalid-feedback"
+            >
+              Formato de data inválida.
+            </div>
+          </div>
+          <!--  -->
+          <div class="halfbox">
+            <label for="">Data de término</label>
+            <input type="datetime-local" formControlName="dataFim" />
+            <div
+              *ngIf="
+                form.get('dataFim').hasError('required') &&
+                form.get('dataFim').touched
+              "
+              class="invalid-feedback"
+            >
+              A data de fim é obrigatória.
+            </div>
+            <!--  -->
+            <div
+              *ngIf="
+                form.get('dataFim').hasError('minlength') &&
+                form.get('dataFim').touched
+              "
+              class="invalid-feedback"
+            >
+              Formato de data inválida.
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="halfbox-container">
+          <div class="halfbox">
+            <label for="">Custos</label>
+            <input type="text" placeholder="R$" formControlName="custos" />
+            <div
+              *ngIf="
+                form.get('custos').hasError('required') &&
+                form.get('custos').touched
+              "
+              class="invalid-feedback"
+            >
+              O custo é obrigatório.
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="fullbox">
+          <button class="btn success">Salvar</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>

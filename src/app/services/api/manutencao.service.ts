@@ -35,9 +35,7 @@ export class ManutencaoService {
   }
  
   update(m: Manutencao) {
-   return this.httpClient.put(this.baseUrl + '/' + m.id, {
-
-   }).pipe(
+   return this.httpClient.put(this.baseUrl + '/' + m.id, m).pipe(
      tap(res => {this.successMessage('Manutenção de id:' + m.id + ' atualizado com êxito!'); return res}),
      catchError(er => {this.handleError(er); return er})
    )

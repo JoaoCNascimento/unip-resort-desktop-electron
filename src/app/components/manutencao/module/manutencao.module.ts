@@ -5,6 +5,7 @@ import { ManutencaoRoutingModule } from './manutencao-routing.module';
 import { ManutencaoComponent } from '../manutencao.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ManutencaoRoutingModule,
     FontAwesomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ]
 })
 export class ManutencaoModule { }

@@ -1,7 +1,7 @@
 export interface Manutencao {
     id: Number
     descricao: String
-    dataInicio: Date
-    dataFim: Date
+    dataInicio: Date | string
+    dataFim: Date | string
     custos: Number
 }
