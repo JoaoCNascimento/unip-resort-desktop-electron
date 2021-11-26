@@ -21,5 +21,9 @@ Para buildar o projeto para desktop com electron:
 2. Use o comando `npm i -d` para instalar as dependências
 3. Inicie o build do projeto com: `npm start`
 
-Obs.: Para iniciar o projeto é necessário ter o angular-cli a partir da versão 9 instalado, para instalá-lo, use o comando:
+Obs.: 
+
+ - É necessário ter Node Js, qualquer versão acima da 14, instalado para usar os comandos aqui descritos.
+
+ - Para iniciar o projeto é necessário ter o angular-cli a partir da versão 9 instalado, para instalá-lo, use o comando:
 `npm i -g --save @angular/cli@9.0.0`
