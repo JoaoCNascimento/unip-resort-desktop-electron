@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Gerente } from 'src/app/models/Gerente';
+import { baseUrl } from 'src/config/config';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -11,7 +12,7 @@ import { AuthService } from './auth.service';
 })
 export class GerenteService {
 
-  baseUrl = "https://backend-pim.herokuapp.com/gerentes";
+  baseUrl = baseUrl + "gerentes";
 
   constructor(
     private toastrService: ToastrService,
