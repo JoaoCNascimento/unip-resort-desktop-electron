@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FuncionariosComponent } from '../funcionarios.component';
 import { FuncionariosRoutingModule } from './funcionarios-routing.module';
 import { CadastrarComponent } from '../cadastrar/cadastrar.component';
@@ -24,7 +24,8 @@ import { RgPipe } from 'src/app/pipes/rg.pipe';
     ReactiveFormsModule,
     FuncionariosRoutingModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     CepService

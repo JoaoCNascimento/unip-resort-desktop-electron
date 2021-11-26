@@ -17,8 +17,11 @@ export class ConsultarComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrash;
 
+  nome: string = '';
+
   form: FormGroup;
 
+  funcionariosFiltrados: Funcionario[] = [];
   funcionarios: Funcionario[] = [];
 
   constructor(
@@ -55,6 +58,20 @@ export class ConsultarComponent implements OnInit {
     );
   }
 
+  
+  filtrarFuncionarios(limpar?) {
+    if(limpar)
+      this.nome = '';
+    
+    if(this.nome === '') 
+      return this.funcionariosFiltrados = this.funcionarios;
+    this.nome = this.nome.toLocaleLowerCase();
+    return (this.funcionariosFiltrados = this.funcionarios.filter(
+      (f) =>
+        f.nome.toString().toLowerCase().indexOf(this.nome) !== -1
+    ));
+  }
+
   findAllFuncionarios() {
     this.fs.findAll().subscribe((res: Funcionario[]) => {
       if (res) {
@@ -70,6 +87,7 @@ export class ConsultarComponent implements OnInit {
 
         resFiltered = resFiltered.filter(e => {return e !== undefined});
         
+        this.funcionariosFiltrados = resFiltered;
         return this.funcionarios = resFiltered;
       }
         

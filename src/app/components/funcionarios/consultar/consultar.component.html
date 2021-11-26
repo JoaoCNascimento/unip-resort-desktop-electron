@@ -4,8 +4,9 @@
 <div>
     <label for="">Filtrar</label>
     <div class="search-input-container">
-        <input type="text" placeholder="Nome do funcionário">
-        <button class="btn info">Pesquisar</button>
+        <input [(ngModel)]="nome" type="text" placeholder="Nome do funcionário">
+        <button (click)="filtrarFuncionarios()" class="btn info">Pesquisar</button>
+        <button (click)="filtrarFuncionarios(true)" class="btn warning">Limpar filtros</button>
     </div>    
 </div>
 
@@ -24,7 +25,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let funcionario of funcionarios">
+            <tr *ngFor="let funcionario of funcionariosFiltrados">
                 <td>{{ funcionario.id }}</td>
                 <td>{{ funcionario.nome }}</td>
                 <td>{{ funcionario.email }}</td>
