@@ -21,7 +21,7 @@
             class="btn-action"
             [icon]="faEdit"
           ></fa-icon>
-          <fa-icon *ngIf="!(gerentes.length === 1)" class="btn-action" [icon]="faTrash"></fa-icon>
+          <fa-icon (click)="deleteGerente(gerente.id)" *ngIf="!(gerentes.length === 1)" class="btn-action" [icon]="faTrash"></fa-icon>
         </td>
       </tr>
     </tbody>

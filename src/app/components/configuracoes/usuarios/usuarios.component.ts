@@ -42,6 +42,12 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
+  deleteGerente(id) {
+    this.gs.delete(id).subscribe(res => {
+      this.findAllGerentes();
+    })
+  }
+
   onSubmit() {
     if(this.form.invalid) {
       this.form.markAllAsTouched();
@@ -63,8 +69,14 @@ export class UsuariosComponent implements OnInit {
       this.form.markAllAsTouched();
       return this.toastrService.warning('Verifique se os campos foram preenchidos corretamente.', 'Formulário inválido!');
     }
+
+    if(this.form.get('senha').value === 'Digite uma nova senha')
+      return this.toastrService.warning('Digite uma nova senha ou repita a antiga para prosseguir', 'Erro no campo senha');
       
     let gerente: Gerente = Object.assign({}, this.form.value);
+
+    gerente.dataAdmissao = moment(gerente.dataAdmissao.toString()).format('DD/MM/yyyy');
+
     this.gs.update(gerente).subscribe(res => {
       this.findAllGerentes();
       this.hideModal(1);
