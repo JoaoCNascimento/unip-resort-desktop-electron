@@ -32,3 +32,7 @@ Obs.:
 
  - Para iniciar o projeto é necessário ter o angular-cli a partir da versão 9 instalado, para instalá-lo, use o comando:
 `npm i -g --save @angular/cli@9.0.0`
+
+Para testar a aplicação, use o login: 
+  ricardomilos@gmail.com
+  senha: 1234
