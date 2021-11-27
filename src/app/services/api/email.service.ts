@@ -3,14 +3,14 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 import { catchError, tap } from "rxjs/operators";
-import { baseUrl } from "src/config/config";
+import { baseUrl, emailServiceUrl } from "src/config/config";
 import { AuthService } from "./auth.service";
 
 @Injectable({
   providedIn: "root",
 })
-export class CepService {
-  private readonly baseUrl = baseUrl + "gerentes/send/";
+export class EmailService {
+  private readonly baseUrl = emailServiceUrl;
 
   constructor(
     private httpClient: HttpClient,
@@ -18,16 +18,17 @@ export class CepService {
     private authService: AuthService
   ) {}
 
-  sendClientes() {
-    this.httpClient.get(this.baseUrl + 'clientes').pipe(
-        tap(res => this.toastrService.success('Email para clientes enviado com sucesso!')),
-        catchError(er => {this.handleErrors(er); return er;})
-    );
-  }
-
-  sendFuncionarios() {
-    this.httpClient.get(this.baseUrl + 'funcionarios').pipe(
-        tap(res => this.toastrService.success('Email para funcionarios enviado com sucesso!')),
+  sendMail(_emails: String[], email) {
+    return this.httpClient.post(this.baseUrl, {
+      emails: _emails,
+      email: {
+        subject: email.subject,
+        titulo: email.titulo,
+        conteudo: email.conteudo,
+        img: email.img
+      }
+    }).pipe(
+        tap(res => this.toastrService.success('Email enviado com sucesso!')),
         catchError(er => {this.handleErrors(er); return er;})
     );
   }

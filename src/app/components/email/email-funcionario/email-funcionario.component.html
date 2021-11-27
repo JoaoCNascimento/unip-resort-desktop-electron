@@ -1,6 +1,6 @@
 <h2 class="header">Email Funcionários</h2>
 <div>
-  <form [formGroup]="form">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div class="fullbox">
       <label for="">Assunto</label>
       <input
